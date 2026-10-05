@@ -1,0 +1,63 @@
+import java.util.Properties
+
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+}
+
+android {
+    namespace = "com.igrupos.database"
+    compileSdk = 35
+
+    defaultConfig {
+        minSdk = 26
+
+        val localProps = Properties()
+        val localPropsFile = rootProject.file("local.properties")
+        if (localPropsFile.exists()) {
+            localProps.load(localPropsFile.inputStream())
+        }
+        val passphrase = localProps.getProperty("DB_PASSPHRASE")
+            ?: throw GradleException(
+                "DB_PASSPHRASE not found in local.properties. " +
+                "Add: DB_PASSPHRASE=<your-secret> to local.properties (root of project)."
+            )
+        buildConfigField("String", "DB_PASSPHRASE", "\"${passphrase}\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+dependencies {
+    implementation(libs.hilt.android)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.sqlcipher)
+    implementation(libs.sqlite.ktx)
+    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.serialization.json)
+
+    ksp(libs.hilt.compiler)
+    ksp(libs.room.compiler)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.room.testing)
+    testImplementation(libs.sqlcipher)
+    testImplementation(libs.mockk)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.robolectric)
+}

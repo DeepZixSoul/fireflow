@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Igrupos</string>
+
+    <!-- Common -->
+    <string name="common_back">Volver</string>
+    <string name="common_ok">OK</string>
+    <string name="common_accept">Aceptar</string>
+    <string name="common_cancel">Cancelar</string>
+
+    <!-- Login -->
+    <string name="login_app_title">IGrupos</string>
+    <string name="login_subtitle">Gestión de grupos de presión</string>
+    <string name="login_username_label">Usuario</string>
+    <string name="login_password_label">Contraseña</string>
+    <string name="login_hide_password">Ocultar contraseña</string>
+    <string name="login_show_password">Mostrar contraseña</string>
+    <string name="login_button_locked">Bloqueado (%ds)</string>
+    <string name="login_button">Iniciar sesión</string>
+
+    <!-- Change Password -->
+    <string name="change_password_title">Cambiar contraseña</string>
+    <string name="change_password_subtitle">Debes cambiar tu contraseña para continuar</string>
+    <string name="change_password_current_label">Contraseña actual</string>
+    <string name="change_password_hide_current">Ocultar contraseña actual</string>
+    <string name="change_password_show_current">Mostrar contraseña actual</string>
+    <string name="change_password_new_label">Nueva contraseña</string>
+    <string name="change_password_hide_new">Ocultar nueva contraseña</string>
+    <string name="change_password_show_new">Mostrar nueva contraseña</string>
+    <string name="change_password_confirm_label">Confirmar contraseña</string>
+    <string name="change_password_hide_confirm">Ocultar confirmación de contraseña</string>
+    <string name="change_password_show_confirm">Mostrar confirmación de contraseña</string>
+    <string name="change_password_save_button">Guardar contraseña</string>
+
+    <!-- Clients -->
+    <string name="clientes_title">Clientes</string>
+    <string name="clientes_add_content_desc">Añadir cliente</string>
+    <string name="clientes_search_placeholder">Buscar por nombre o CIF…</string>
+    <string name="clientes_empty_title">No hay clientes</string>
+    <string name="clientes_empty_subtitle">Añade el primero para comenzar</string>
+    <string name="clientes_card_content_desc">Cliente: %s, CIF: %s</string>
+
+    <!-- Client Form -->
+    <string name="cliente_form_edit_title">Editar cliente</string>
+    <string name="cliente_form_new_title">Nuevo cliente</string>
+    <string name="cliente_form_name_label">Nombre *</string>
+    <string name="cliente_form_cif_label">CIF *</string>
+    <string name="cliente_form_address_label">Dirección</string>
+    <string name="cliente_form_province_label">Provincia</string>
+    <string name="cliente_form_contact_label">Persona de contacto</string>
+    <string name="cliente_form_phone_label">Teléfono</string>
+    <string name="cliente_form_email_label">Email</string>
+    <string name="cliente_form_notes_label">Observaciones</string>
+    <string name="cliente_form_save_edit">Guardar cambios</string>
+    <string name="cliente_form_save_new">Crear cliente</string>
+    <string name="cliente_form_geocoding">Buscando ubicación…</string>
+    <string name="cliente_form_location_title">Ubicación</string>
+    <string name="cliente_form_view_map">Ver en mapa</string>
+
+    <!-- Client Detail -->
+    <string name="cliente_detail_title_fallback">Cliente</string>
+    <string name="cliente_detail_edit_desc">Editar cliente</string>
+    <string name="cliente_detail_add_group_desc">Añadir grupo</string>
+    <string name="cliente_detail_section_data">Datos del cliente</string>
+    <string name="cliente_detail_groups_title">Grupos de presión (%d)</string>
+    <string name="cliente_detail_no_groups">No hay grupos registrados</string>
+    <string name="cliente_detail_label_cif">CIF</string>
+    <string name="cliente_detail_label_address">Dirección</string>
+    <string name="cliente_detail_label_province">Provincia</string>
+    <string name="cliente_detail_label_contact">Contacto</string>
+    <string name="cliente_detail_label_phone">Teléfono</string>
+    <string name="cliente_detail_label_email">Email</string>
+    <string name="cliente_detail_label_coordinates">Coordenadas</string>
+    <string name="cliente_detail_installation_address">Dirección de la instalación</string>
+    <string name="cliente_detail_refresh_address_desc">Actualizar dirección</string>
+    <string name="cliente_detail_open_map_desc">Abrir ubicación en mapa: %s</string>
+    <string name="cliente_detail_not_available">No disponible</string>
+    <string name="cliente_detail_notes_label">Observaciones:</string>
+    <string name="cliente_detail_group_card_desc">Grupo: %s %s, serie %s</string>
+
+    <!-- Pressure Groups -->
+    <string name="grupos_title">Grupos de presión</string>
+    <string name="grupos_add_content_desc">Añadir grupo</string>
+    <string name="grupos_empty_title">No hay grupos registrados</string>
+    <string name="grupos_empty_subtitle">Crea un grupo para este cliente</string>
+    <string name="grupos_card_content_desc">Grupo: %s %s, serie %s</string>
+    <string name="grupos_card_serial_power">Serie: %s | Potencia: %s</string>
+    <string name="grupos_motor_type_electric">Eléctrico</string>
+    <string name="grupos_motor_type_diesel">Diésel</string>
+
+    <!-- Group Form -->
+    <string name="grupo_form_edit_title">Editar grupo</string>
+    <string name="grupo_form_new_title">Nuevo grupo</string>
+    <string name="grupo_form_brand_label">Marca</string>
+    <string name="grupo_form_model_label">Modelo</string>
+    <string name="grupo_form_serial_label">Número de serie</string>
+    <string name="grupo_form_pump_label">Número de bomba</string>
+    <string name="grupo_form_manufacturer_label">Fabricante</string>
+    <string name="grupo_form_power_label">Potencia</string>
+    <string name="grupo_form_installation_date">Fecha de instalación</string>
+    <string name="grupo_form_maintenance_date">Fecha de mantenimiento</string>
+    <string name="grupo_form_save_edit">Guardar cambios</string>
+    <string name="grupo_form_save_new">Crear grupo</string>
+    <string name="grupo_form_date_select_desc">Seleccionar fecha</string>
+
+    <!-- Group Detail -->
+    <string name="grupo_detail_title_fallback">Grupo</string>
+    <string name="grupo_detail_add_revision_desc">Nueva revisión</string>
+    <string name="grupo_detail_section_data">Datos del grupo</string>
+    <string name="grupo_detail_edit_motors">Editar / Añadir motores</string>
+    <string name="grupo_detail_revisions_title">Revisiones (%d)</string>
+    <string name="grupo_detail_no_revisions">No hay revisiones registradas</string>
+
+    <!-- Motor Form -->
+    <string name="motor_form_title">Motores del grupo</string>
+    <string name="motor_form_section_title">Motores</string>
+    <string name="motor_form_add_button">Añadir motor</string>
+    <string name="motor_form_save_button">Guardar motores</string>
+    <string name="motor_form_year_title">Año de medición</string>
+    <string name="motor_form_new_year">+ Nuevo</string>
+    <string name="motor_form_card_title">Motor %d</string>
+    <string name="motor_form_delete_desc">Eliminar motor</string>
+    <string name="motor_form_type_electric">Eléctrico</string>
+    <string name="motor_form_type_diesel">Diésel</string>
+    <string name="motor_form_flow_label">Caudal nominal (m³/h)</string>
+    <string name="motor_form_height_label">Altura manométrica (m)</string>
+
+    <!-- Pressure Measurements -->
+    <string name="pressure_section_year_title">Año de medición</string>
+    <string name="pressure_table_title">Tabla de presiones - %d</string>
+    <string name="pressure_motor_card_title">Motor %d - %s</string>
+    <string name="pressure_add_year_desc">Añadir año siguiente</string>
+    <string name="pressure_table_header_flow">Caudal\n(L/min)</string>
+    <string name="pressure_table_header_pressure">Presión\n(Bar)</string>
+
+    <!-- Group Info Card -->
+    <string name="group_info_brand">Marca</string>
+    <string name="group_info_model">Modelo</string>
+    <string name="group_info_serial">Nº Serie</string>
+    <string name="group_info_pump">Nº Bomba</string>
+    <string name="group_info_manufacturer">Fabricante</string>
+    <string name="group_info_power">Potencia</string>
+    <string name="group_info_installation_date">Fecha instalación</string>
+    <string name="group_info_maintenance_date">Fecha mantenimiento</string>
+
+    <!-- Curve Chart -->
+    <string name="curve_chart_title">Gráfica de rendimiento de grupo de presión</string>
+    <string name="curve_chart_motor_label">Motor %s</string>
+    <string name="curve_chart_no_data">No hay datos de curva para este motor en el año seleccionado</string>
+    <string name="curve_chart_header_flow">Caudal\n(L/min)</string>
+    <string name="curve_chart_header_pressure">Presión\n(Bar)</string>
+
+    <!-- Revisions -->
+    <string name="revisiones_title">Revisiones</string>
+    <string name="revisiones_add_desc">Nueva revisión</string>
+    <string name="revisiones_empty_title">No hay revisiones</string>
+    <string name="revisiones_empty_subtitle">Añade una revisión para este grupo</string>
+
+    <!-- Revision Form -->
+    <string name="revision_form_edit_title">Editar revisión</string>
+    <string name="revision_form_new_title">Nueva revisión</string>
+    <string name="revision_form_copy_on">Copiar de revisión anterior: ON</string>
+    <string name="revision_form_copy_off">Copiar de revisión anterior: OFF</string>
+    <string name="revision_form_technician_label">Técnico</string>
+    <string name="revision_form_notes_label">Observaciones</string>
+    <string name="revision_form_checklist_title">Checklist</string>
+    <string name="revision_form_save_edit">Guardar cambios</string>
+    <string name="revision_form_save_new">Crear revisión</string>
+
+    <!-- Revision Detail -->
+    <string name="revision_detail_title">Detalle de revisión</string>
+    <string name="revision_detail_notes_title">Observaciones</string>
+    <string name="revision_detail_checklist_title">Checklist</string>
+    <string name="revision_detail_actions_title">Acciones</string>
+    <string name="revision_detail_action_curves">Curvas</string>
+    <string name="revision_detail_action_photos">Fotografías</string>
+    <string name="revision_detail_action_report">Generar informe PDF</string>
+    <string name="revision_detail_action_export">Exportar</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Configuración</string>
+    <string name="settings_preferences_title">Preferencias</string>
+    <string name="settings_dark_mode_title">Modo oscuro</string>
+    <string name="settings_dark_mode_on">Activado</string>
+    <string name="settings_dark_mode_off">Desactivado</string>
+    <string name="settings_sync_title">Sincronización automática</string>
+    <string name="settings_sync_on">Activada</string>
+    <string name="settings_sync_off">Desactivada</string>
+    <string name="settings_server_config_title">Servidor</string>
+    <string name="settings_server_url_label">URL del servidor</string>
+    <string name="settings_server_url_placeholder">https://api.ejemplo.com</string>
+    <string name="settings_auth_token_label">Token de autenticación</string>
+    <string name="settings_save_config">Guardar configuración</string>
+    <string name="settings_config_saved">Configuración guardada</string>
+    <string name="settings_sync_status_title">Estado de sincronización</string>
+    <string name="settings_sync_last_sync">Última sincronización: %s</string>
+    <string name="settings_sync_never">Nunca</string>
+    <string name="settings_sync_now">Sincronizar ahora</string>
+    <string name="settings_sync_in_progress">Sincronizando…</string>
+    <string name="settings_app_version">IGrupos v1.0.0</string>
+    <string name="settings_app_description">Gestión de grupos de presión contra incendios</string>
+
+    <!-- Report -->
+    <string name="report_title">Informe PDF</string>
+    <string name="report_generating">Generando PDF…</string>
+    <string name="report_success_title">PDF generado correctamente</string>
+    <string name="report_share_button">Compartir PDF</string>
+    <string name="report_generate_title">Generar informe PDF</string>
+    <string name="report_generate_subtitle">Se incluirán datos del cliente, grupo, resultados, checklist y fotografías</string>
+    <string name="report_generate_button">Generar PDF</string>
+
+    <!-- Curves -->
+    <string name="curvas_title">Curvas de rendimiento</string>
+    <string name="curvas_empty_title">Sin datos de curvas</string>
+    <string name="curvas_empty_subtitle">Las curvas se rellenan desde el detalle del grupo, en la sección de presiones anuales</string>
+
+    <!-- Export -->
+    <string name="export_title">Exportar datos</string>
+    <string name="export_exporting">Exportando…</string>
+    <string name="export_success_title">Exportación completada</string>
+    <string name="export_share_button">Compartir archivo</string>
+    <string name="export_select_format">Exportar revisión</string>
+    <string name="export_csv_description">Se generará un archivo CSV con los datos del cliente, grupo, checklist y curvas, listo para abrir en Excel u otra hoja de cálculo</string>
+    <string name="export_csv_button">Exportar CSV</string>
+
+    <!-- Converter -->
+    <string name="converter_title">Convertidor</string>
+    <string name="converter_flow_title">Caudal</string>
+    <string name="converter_pressure_title">Presión</string>
+    <string name="converter_unit_lmin">L/min</string>
+    <string name="converter_unit_m3h">m³/h</string>
+    <string name="converter_unit_gpm">GPM</string>
+    <string name="converter_unit_psi">PSI</string>
+    <string name="converter_unit_bar">Bar</string>
+    <string name="converter_unit_kpa">kPa</string>
+    <string name="converter_unit_mca">mca</string>
+
+    <!-- History -->
+    <string name="history_title">Historial</string>
+    <string name="history_search_placeholder">Buscar revisiones…</string>
+    <string name="history_empty_title">No hay revisiones en el historial</string>
+
+    <!-- Photos -->
+    <string name="photos_title">Fotografías</string>
+    <string name="photos_take_desc">Tomar foto</string>
+    <string name="photos_empty_title">No hay fotografías</string>
+    <string name="photos_empty_subtitle">Toma una foto con el botón inferior</string>
+    <string name="photos_item_desc">Foto</string>
+    <string name="photos_delete_desc">Eliminar</string>
+
+    <!-- Shared labels -->
+    <string name="label_technician">Técnico: %s</string>
+    <string name="label_revision_card">Revisión: %s, %s</string>
+    <string name="label_created">Creado: %s</string>
+    <string name="label_serial">Serie: %s</string>
+
+    <!-- Error messages -->
+    <string name="error_fill_all_fields">Completa todos los campos</string>
+    <string name="error_auth">Error de autenticación</string>
+    <string name="error_too_many_attempts">Demasiados intentos. Espera %d segundos</string>
+    <string name="error_invalid_session">Sesión no válida</string>
+    <string name="error_passwords_dont_match">Las contraseñas no coinciden</string>
+    <string name="error_password_too_short">La contraseña debe tener al menos 8 caracteres</string>
+    <string name="error_change_password">Error al cambiar contraseña</string>
+    <string name="error_password_validation">Error de validación de contraseña</string>
+    <string name="error_geocode">No se pudo determinar la ubicación</string>
+    <string name="error_name_required">El nombre es obligatorio</string>
+    <string name="error_cif_required">El CIF es obligatorio</string>
+
+    <!-- Bottom Navigation -->
+    <string name="bottom_nav_clients">Clientes</string>
+    <string name="bottom_nav_history">Historial</string>
+    <string name="bottom_nav_converters">Convertidor</string>
+    <string name="bottom_nav_settings">Ajustes</string>
+
+    <!-- Logout -->
+    <string name="settings_logout">Cerrar sesión</string>
+    <string name="settings_logout_confirm">¿Estás seguro de que quieres cerrar sesión?</string>
+
+    <!-- Delete confirmations -->
+    <string name="delete_title">Eliminar</string>
+    <string name="delete_client_confirm">¿Eliminar este cliente? Se ocultará de la lista.</string>
+    <string name="delete_group_confirm">¿Eliminar este grupo de presión?</string>
+    <string name="delete_revision_confirm">¿Eliminar esta revisión? Esta acción no se puede deshacer.</string>
+
+    <!-- Status legend -->
+    <string name="status_legend_title">Leyenda de estados</string>
+    <string name="status_green">Completado sin avería</string>
+    <string name="status_yellow">Completado con avería</string>
+    <string name="status_red">Sin terminar</string>
+    <string name="status_gray">Sin datos</string>
+</resources>

@@ -1,0 +1,41 @@
+# IDE
+*.iml
+/.idea
+.kotlin/
+
+# Gradle
+.gradle/
+build/
+
+# Local config (contains DB_PASSPHRASE, SDK path)
+local.properties
+
+# OS
+.DS_Store
+captures/
+
+# Native
+.externalNativeBuild
+.cxx
+
+# Artifacts
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Environment / secrets
+.env
+secrets.properties
+
+# Logs
+*.log
+
+# Private security documentation
+SECURITY_AUDIT.md
+
+# Accidental jar/source extraction at repo root
+/com/
+
+# Build directories (unanchored — covers every module)
+**/build/

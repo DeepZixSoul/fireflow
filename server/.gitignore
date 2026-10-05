@@ -1,0 +1,28 @@
+# Build
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Environment
+.env
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Kotlin
+*.class
+*.jar
+*.war
+*.ear
+
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
