@@ -1,15 +1,15 @@
-# IGrupos — Plan Maestro del Proyecto
+# FireFlow — Plan Maestro del Proyecto
 
 > Última actualización: 2026-08-08
 > Este documento es la fuente de verdad del proyecto. Si se hace compact, leer esto primero.
 
 ---
 
-## 1. Qué es IGrupos
+## 1. Qué es FireFlow
 
 Aplicación Android de gestión de grupos de presión (sistemas de bombas) para empresas de mantenimiento industrial. Permite gestionar clientes, grupos de presión, revisiones, curvas de presión, fotos, informes PDF y exportación CSV. Incluye un servidor Ktor backend para sincronización offline-first.
 
-**Application ID**: `com.igrupos`
+**Application ID**: `com.fireflow`
 **Min SDK**: 26 | **Target/Compile SDK**: 35
 **Kotlin**: 2.1.0 | **JVM**: 17 (Android), 21 (Server)
 
@@ -174,9 +174,9 @@ cd server && docker compose build && docker compose up -d
 
 | Módulo | Archivos principales |
 |--------|---------------------|
-| `app` | `IGruposApplication.kt`, `AppInitializer.kt`, `MainActivity.kt` |
+| `app` | `FireFlowApplication.kt`, `AppInitializer.kt`, `MainActivity.kt` |
 | `core` | `PasswordValidator.kt`, `DateUtils.kt`, `GeocoderUtil.kt` |
-| `common` | `theme/Theme.kt`, `components/IGruposTopBar.kt`, `components/StatusIndicator.kt`, `components/ConfirmDeleteDialog.kt` |
+| `common` | `theme/Theme.kt`, `components/FireFlowTopBar.kt`, `components/StatusIndicator.kt`, `components/ConfirmDeleteDialog.kt` |
 | `domain` | `model/*.kt` (12 models), `repository/*.kt` (9 interfaces), `datasource/RemoteDataSource.kt`, `util/StatusCalculator.kt` |
 | `data` | `repository/*Impl.kt` (9), `mapper/*.kt` (8), `sync/SyncManager.kt`, `sync/SyncWorker.kt`, `di/RepositoryModule.kt` |
 | `database` | `AppDatabase.kt`, `Migrations.kt` (v7), `dao/*.kt` (9), `entity/*.kt` (9), `di/DatabaseModule.kt` |
@@ -251,7 +251,7 @@ curve_points (BIGINT PK, revision_id FK → revisions, motor_id FK)
 
 1. **Leer este archivo completo** (PLAN.md)
 2. **Leer `AGENTS.md`** para reglas del proyecto
-3. **Leer `.agents/skills/igrupos-architecture/SKILL.md`** para convenciones
+3. **Leer `.agents/skills/fireflow-architecture/SKILL.md`** para convenciones
 4. **Verificar estado**: `JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew assembleDebug` (Android) y `cd server && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew test` (Server)
 5. **Continuar la fase pendiente** más arriba en "Sección 7: Plan de Refactorización"
 6. **Marcar fases completadas** actualizando el estado en la Sección 7

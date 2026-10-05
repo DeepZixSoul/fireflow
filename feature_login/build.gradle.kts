@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.igrupos.login"
+    namespace = "com.fireflow.login"
     compileSdk = 35
 
     defaultConfig {

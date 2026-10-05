@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.igrupos.revisiones"
+    namespace = "com.fireflow.revisiones"
     compileSdk = 35
 
     defaultConfig {

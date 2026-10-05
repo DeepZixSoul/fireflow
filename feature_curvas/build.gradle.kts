@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.igrupos.curvas"
+    namespace = "com.fireflow.curvas"
     compileSdk = 35
 
     defaultConfig {

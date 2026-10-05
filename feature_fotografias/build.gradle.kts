@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.igrupos.fotografias"
+    namespace = "com.fireflow.fotografias"
     compileSdk = 37
 
     defaultConfig {

@@ -7,17 +7,17 @@ plugins {
 }
 
 android {
-    namespace = "com.igrupos"
+    namespace = "com.fireflow"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.igrupos"
+        applicationId = "com.fireflow"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
 
-        testInstrumentationRunner = "com.igrupos.HiltTestRunner"
+        testInstrumentationRunner = "com.fireflow.HiltTestRunner"
     }
 
     buildTypes {

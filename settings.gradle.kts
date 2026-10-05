@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Igrupos"
+rootProject.name = "FireFlow"
 
 include(":app")
 include(":core")

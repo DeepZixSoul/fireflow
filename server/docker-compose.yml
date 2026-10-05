@@ -1,12 +1,12 @@
 services:
   server:
     build: .
-    container_name: igrupos-server
+    container_name: fireflow-server
     ports:
       - "9090:9090"
     environment:
-      - DATABASE_URL=jdbc:postgresql://db:5432/igrupos_db
-      - DB_USER=${DB_USER:-igrupos}
+      - DATABASE_URL=jdbc:postgresql://db:5432/fireflow_db
+      - DB_USER=${DB_USER:-fireflow}
       - DB_PASSWORD=${DB_PASSWORD}
       - JWT_SECRET=${JWT_SECRET}
     depends_on:
@@ -20,33 +20,33 @@ services:
     mem_limit: 512m
     cpus: 1.0
     networks:
-      - igrupos-network
+      - fireflow-network
 
   db:
     image: postgres:16-alpine
-    container_name: igrupos-db
+    container_name: fireflow-db
     environment:
-      - POSTGRES_DB=${POSTGRES_DB:-igrupos_db}
-      - POSTGRES_USER=${DB_USER:-igrupos}
+      - POSTGRES_DB=${POSTGRES_DB:-fireflow_db}
+      - POSTGRES_USER=${DB_USER:-fireflow}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-igrupos}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-fireflow}"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 30s
     restart: unless-stopped
     networks:
-      - igrupos-network
+      - fireflow-network
 
 volumes:
   pgdata:
     driver: local
 
 networks:
-  igrupos-network:
+  fireflow-network:
     driver: bridge

@@ -4,11 +4,11 @@ plugins {
     id("io.ktor.plugin") version "3.0.3"
 }
 
-group = "com.igrupos"
+group = "com.fireflow"
 version = "1.0.0"
 
 application {
-    mainClass.set("com.igrupos.server.ApplicationKt")
+    mainClass.set("com.fireflow.server.ApplicationKt")
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }

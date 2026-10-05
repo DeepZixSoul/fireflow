@@ -19,7 +19,7 @@
 
 ```
 server/
-├── src/main/kotlin/com/igrupos/server/
+├── src/main/kotlin/com/fireflow/server/
 │   ├── Application.kt          # Entry point + module wiring
 │   ├── config/                 # ServerConfig, DatabaseConfig
 │   ├── features/               # Ktor plugins (CORS, Auth, Serialization, StatusPages)
@@ -94,8 +94,8 @@ Response: { "status": "ok", "timestamp": "1712345678000", "version": "1.0.0" }
 ```bash
 # .env (NUNCA commitear)
 JWT_SECRET=>=32 chars
-DATABASE_URL=jdbc:postgresql://db:5432/igrupos
-DB_USER=igrupos
+DATABASE_URL=jdbc:postgresql://db:5432/fireflow
+DB_USER=fireflow
 DB_PASSWORD=>=16 chars
 ALLOWED_ORIGINS=http://localhost:3000  # CORS whitelist
 ```

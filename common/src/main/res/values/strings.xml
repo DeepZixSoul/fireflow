@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Igrupos</string>
+    <string name="app_name">FireFlow</string>
 
     <!-- Common -->
     <string name="common_back">Volver</string>
@@ -9,7 +9,7 @@
     <string name="common_cancel">Cancelar</string>
 
     <!-- Login -->
-    <string name="login_app_title">IGrupos</string>
+    <string name="login_app_title">FireFlow</string>
     <string name="login_subtitle">Gestión de grupos de presión</string>
     <string name="login_username_label">Usuario</string>
     <string name="login_password_label">Contraseña</string>
@@ -197,7 +197,7 @@
     <string name="settings_sync_never">Nunca</string>
     <string name="settings_sync_now">Sincronizar ahora</string>
     <string name="settings_sync_in_progress">Sincronizando…</string>
-    <string name="settings_app_version">IGrupos v1.0.0</string>
+    <string name="settings_app_version">FireFlow v1.0.0</string>
     <string name="settings_app_description">Gestión de grupos de presión contra incendios</string>
 
     <!-- Report -->

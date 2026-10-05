@@ -195,7 +195,7 @@ Siempre:
 
 # Seguridad del Servidor (Ktor + PostgreSQL)
 
-Al trabajar en `server/`, seguir obligatoriamente las guidelines del skill `igrupos-server-security`.
+Al trabajar en `server/`, seguir obligatoriamente las guidelines del skill `fireflow-server-security`.
 
 ## Reglas Críticas del Servidor
 

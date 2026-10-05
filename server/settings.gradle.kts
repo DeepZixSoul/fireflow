@@ -1,1 +1,1 @@
-rootProject.name = "igrupos-server"
+rootProject.name = "fireflow-server"

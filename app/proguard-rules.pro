@@ -6,7 +6,7 @@
 # Keep Room
 -keep class * extends androidx.room.RoomDatabase
 -keep @androidx.room.Entity class *
--keep class com.igrupos.database.entity.** { *; }
+-keep class com.fireflow.database.entity.** { *; }
 
 # Keep SQLCipher
 -keep class net.sqlcipher.** { *; }
@@ -21,7 +21,7 @@
 }
 
 # Keep models used for serialization
--keep class com.igrupos.domain.model.** { *; }
+-keep class com.fireflow.domain.model.** { *; }
 
 # Remove logging in release
 -assumenosideeffects class android.util.Log {

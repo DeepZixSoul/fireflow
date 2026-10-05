@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.igrupos.conversiones"
+    namespace = "com.fireflow.conversiones"
     compileSdk = 35
 
     defaultConfig {

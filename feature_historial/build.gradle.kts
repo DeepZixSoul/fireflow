@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.igrupos.historial"
+    namespace = "com.fireflow.historial"
     compileSdk = 35
 
     defaultConfig {
