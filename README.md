@@ -1,61 +1,72 @@
 <div align="center">
 
-```
-██╗      ██████╗  ██████╗ ██████╗      ██████╗  ██████╗ ██╗     ███████╗██╗  ██╗ ██████╗
-██║     ██╔═══██╗██╔═══██╗██╔══██╗     ██╔══██╗██╔═══██╗██║     ██╔════╝╚██╗██╔╝ ██╔══██╗
-██║     ██║   ██║██║   ██║██████╔╝     ██████╔╝██║   ██║██║     █████╗   ╚███╔╝  ██████╔╝
-██║     ██║   ██║██║   ██║██╔══██╗     ██╔══██╗██║   ██║██║     ██╔══╝   ██╔██╗  ██╔══██╗
-███████╗╚██████╔╝╚██████╔╝██║  ██║     ██████╔╝╚██████╔╝███████╗███████╗██╔╝ ██╗ ██████╔╝
-╚══════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝     ╚═════╝  ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝
-```
-
 # 🔥 FireFlow
 
-### *Gestión de Grupos de Presión contra Incendios*
+**Gestión de Grupos de Presión contra Incendios**
 
+[![CI](https://github.com/DeepZixSoul/fireflow/actions/workflows/ci.yml/badge.svg)](https://github.com/DeepZixSoul/fireflow/actions/workflows/ci.yml)
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-7F52FF?logo=kotlin&logoColor=white&style=for-the-badge)
 ![Android](https://img.shields.io/badge/Android-API%2026%2B-3DDC84?logo=android&logoColor=white&style=for-the-badge)
 ![Compose](https://img.shields.io/badge/Jetpack%20Compose-BOM%202025.03-4285F4?logo=jetpackcompose&logoColor=white&style=for-the-badge)
-![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)
-![Tests](https://img.shields.io/badge/Tests-350%20%E2%9C%94-00E676?style=for-the-badge)
+![Tests](https://img.shields.io/badge/Tests-341%20%E2%9C%94-00E676?style=for-the-badge)
 ![Modules](https://img.shields.io/badge/Modules-18-FF5252?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-FFC107?style=for-the-badge)
 
-<img src="docs/gifs/curvas.gif" alt="FireFlow - Gráfica de curvas de presión" width="330"/>
+<img src="docs/gifs/curvas.gif" alt="Gráfica de curvas presión/caudal en FireFlow" width="330"/>
 
-<br/>
+*Curvas presión/caudal con **Vico** · chips de motor · lecturas al 0/50/100/140/200 %*
 
-*App Android profesional para la gestión integral de grupos de presión contra incendios.*
-*Arquitectura limpia, sincronización offline-first y gráficas de rendimiento en tiempo real.*
+*App Android profesional para la gestión integral de grupos de presión contra incendios.
+Clean Architecture, sincronización offline-first y documentación en PDF/CSV.*
 
 </div>
 
 ---
 
-## 👾 Acerca del Proyecto
+<a name="indice"></a>
 
-```
-╔══════════════════════════════════════════════════════════════╗
-║  FireFlow resuelve un problema real en el sector de         ║
-║  protección contra incendios: el control y seguimiento      ║
-║  de grupos de presión (bombas de incendio) en instalaciones ║
-║  industriales y comerciales.                               ║
-║                                                            ║
-║  Permite a técnicos y mantenedores:                        ║
-║  • Registrar clientes, instalaciones y revisiones          ║
-║  • Medir y visualizar curvas de presión vs. caudal         ║
-║  • Generar informes PDF y exportar datos CSV               ║
-║  • Trabajar 100% offline con sincronización al servidor    ║
-║  • Documentar con fotos y checklists de mantenimiento      ║
-╚══════════════════════════════════════════════════════════════╝
-```
+## 📑 Índice
+
+| | | | |
+|:--|:--|:--|:--|
+| [🏆 Highlights](#highlights) | [👾 Acerca](#acerca) | [🎬 Demo](#demo) | [⚡ Características](#caracteristicas) |
+| [🏗️ Arquitectura](#arquitectura) | [🛠️ Tech Stack](#stack) | [📊 Calidad](#calidad) | [🔒 Seguridad](#seguridad) |
+| [🗺️ Roadmap](#roadmap) | [🚀 Setup](#setup) | [📁 Estructura](#estructura) | [📝 Licencia](#licencia) |
 
 ---
 
+<a name="highlights"></a>
+
+## 🏆 Highlights
+
+- 🧪 **341 tests automatizados** — 259 Android (243 unit + 16 instrumentados) y 82 del servidor Ktor
+- 🏛️ **Clean Architecture + MVVM + Hilt** — 18 módulos Gradle con dependencias unidireccionales
+- 🔒 **Seguridad en profundidad** — SQLCipher en disco, Argon2id/BCrypt, JWT HS256 y prefs cifradas
+- 📡 **Offline-first** — Room + WorkManager con sincronización diferida contra Ktor/PostgreSQL
+- 📈 **Curvas de rendimiento** — presión/caudal con Vico y tabla por motor (0/50/100/140/200 %)
+- 📄 **Salidas profesionales** — informes PDF, exportación CSV y documentación con CameraX
+
+---
+
+<a name="acerca"></a>
+
+## 👾 Acerca del Proyecto
+
+FireFlow resuelve un problema real del sector de **protección contra incendios**: el control y
+seguimiento de los grupos de presión (bombas de incendio) en instalaciones industriales y comerciales.
+
+Está pensado para **técnicos y mantenedores en campo**: registra clientes, instalaciones, revisiones y
+mediciones, trabaja **100 % sin conexión** y genera la documentación (PDF/CSV) que después se sincroniza
+con un backend propio.
+
+---
+
+<a name="demo"></a>
+
 ## 🎬 Demo
 
-> 🎮 *Grabaciones reales de la app funcionando — sin retoques.*
-> Un bloque por acción: sigue el recorrido a tu ritmo.
+> 🎮 *Grabaciones reales de la app funcionando — sin retoques.
+> Un bloque por acción: sigue el recorrido a tu ritmo.*
 
 ### 🔐 Acceso
 
@@ -66,8 +77,6 @@
   <p><sub>Usuario <b>admin</b> · <b>lockout</b> a los 5 intentos · cambio de contraseña forzado</sub></p>
 </div>
 
----
-
 ### 📋 Altas de clientes y grupos
 
 **02 · Crear cliente**
@@ -76,6 +85,29 @@
   <img src="docs/gifs/crear-cliente.gif" alt="Alta de cliente con validaciones" width="320"/>
   <p><sub>Validaciones de <b>CIF</b> y dirección → tarjeta creada con <b>leyenda de estados</b></sub></p>
 </div>
+
+### 🔧 Operativa diaria
+
+**07 · Revisión**
+
+<div align="center">
+  <img src="docs/gifs/revision.gif" alt="Revisión con checklist, fotos y exportaciones" width="320"/>
+  <p><sub><b>Checklist</b> de mantenimiento → fotos, informe <b>PDF</b> y exportación <b>CSV</b></sub></p>
+</div>
+
+### 🕹️ Recorrido general
+
+**09 · Flujo completo**
+
+<div align="center">
+  <img src="docs/gifs/funcionalidad.gif" alt="Recorrido completo por la aplicación" width="320"/>
+  <p><sub>Navegación, <b>estados de color</b> y acciones en un único recorrido</sub></p>
+</div>
+
+<details>
+<summary><b>▶ Ver las 5 capturas restantes</b> — altas avanzadas, curvas y utilidades</summary>
+
+### 📋 Altas avanzadas
 
 **03 · Crear grupo**
 
@@ -98,29 +130,14 @@
   <p><sub>Edición de <b>potencia</b> y <b>caudal nominal</b> que alimentan las curvas</sub></p>
 </div>
 
----
-
 ### 📈 Curvas de presión
 
 **06 · Tabla de presiones y gráfica**
 
 <div align="center">
   <img src="docs/gifs/curvas.gif" alt="Tabla de presiones y gráfica de rendimiento con Vico" width="340"/>
-  <p><sub>Tabla por motor → gráfica <b>Vico</b> con chips de selector y datos al 0/50/100/140/200%</sub></p>
+  <p><sub>Tabla por motor → gráfica interactiva con selector de motor y lecturas por punto</sub></p>
 </div>
-
----
-
-### 🔧 Operativa diaria
-
-**07 · Revisión**
-
-<div align="center">
-  <img src="docs/gifs/revision.gif" alt="Revisión con checklist, fotos y exportaciones" width="320"/>
-  <p><sub><b>Checklist</b> de mantenimiento → fotos, informe <b>PDF</b> y exportación <b>CSV</b></sub></p>
-</div>
-
----
 
 ### 🧮 Utilidades
 
@@ -131,72 +148,59 @@
   <p><sub>Conversión <b>en vivo y bidireccional</b>: L/min, m³/h, GPM, psi, bar, kPa, mCA</sub></p>
 </div>
 
----
-
-### 🕹️ Recorrido general
-
-**09 · Flujo completo**
-
-<div align="center">
-  <img src="docs/gifs/funcionalidad.gif" alt="Recorrido completo por la aplicación" width="320"/>
-  <p><sub>Navegación, <b>estados de color</b> y acciones en un único recorrido</sub></p>
-</div>
+</details>
 
 ---
+
+<a name="caracteristicas"></a>
 
 ## ⚡ Características
 
-```
-🕹️  MÓDULOS FUNCIONALES
-─────────────────────────────────────────────────────────────
- 🔐  Login seguro con lockout anti-brute-force
- 🔑  Cambio de contraseña forzado en primer acceso
- 👥  CRUD completo de clientes con geolocalización
- 🔧  Gestión de grupos de presión y motores
- 📅  Revisiones con checklists y estados de color
- 📈  Gráficas de curvas presión/caudal (Vico 2.1)
- 📄  Generación de informes PDF
- 📊  Exportación de datos CSV
- 📷  Captura y galería de fotos con CameraX
- 🧮  Convertidor de unidades (caudal y presión)
- 🔍  Búsqueda global en historial
- 🔄  Sincronización offline-first con servidor Ktor
- 🌙  Tema oscuro / claro adaptativo
- ♿  Accesibilidad y content descriptions
-─────────────────────────────────────────────────────────────
-```
+- 🔐 Login seguro con **lockout anti-brute-force**
+- 🔑 Cambio de contraseña forzado en el primer acceso
+- 👥 CRUD completo de clientes con geolocalización
+- 🔧 Gestión de grupos de presión y motores (diésel / eléctricos)
+- 📅 Revisiones con checklists y estados de color
+- 📈 Gráficas de curvas presión/caudal (Vico 2.1)
+- 📄 Generación de informes PDF
+- 📊 Exportación de datos CSV
+- 📷 Captura y galería de fotos con CameraX
+- 🧮 Convertidor de unidades en vivo (caudal y presión)
+- 🔍 Búsqueda global en el historial
+- 🔄 Sincronización offline-first con servidor Ktor
+- 🌙 Tema oscuro / claro adaptativo
+- ♿ Accesibilidad y *content descriptions*
 
 ---
 
+<a name="arquitectura"></a>
+
 ## 🏗️ Arquitectura
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    PRESENTATION                        │
-│  ┌──────────┐  ┌──────────────┐  ┌─────────────────┐   │
-│  │  Views   │  │  ViewModels  │  │  Navigation     │   │
-│  │ Compose  │←→│    MVVM      │←→│  20 rutas       │   │
-│  └──────────┘  └──────┬───────┘  └─────────────────┘   │
-│                       │  inyección Hilt                 │
-├───────────────────────┼────────────────────────────────┤
-│                    DOMAIN (pure Kotlin)                │
-│  ┌──────────┐  ┌──────┴───────┐  ┌─────────────────┐   │
-│  │ Entities │←→│ Repositories │←→│    Use Cases     │   │
-│  │  Models  │  │  Interfaces  │  │   Business       │   │
-│  └──────────┘  └──────────────┘  └─────────────────┘   │
-├────────────────────────────────────────────────────────┤
-│                       DATA                             │
-│  ┌──────────┐  ┌──────────────┐  ┌─────────────────┐   │
-│  │  Room +  │  │   DataStore  │  │  Sync / Ktor    │   │
-│  │ SQLCipher│  │  Prefs/Encr. │  │  Client API     │   │
-│  └──────────┘  └──────────────┘  └─────────────────┘   │
-└─────────────────────────────────────────────────────────┘
-                              │
-                    ┌─────────┴─────────┐
-                    │   KTOR SERVER      │
-                    │  PostgreSQL + JWT  │
-                    │  Argon2id + CORS   │
-                    └───────────────────┘
+```mermaid
+flowchart TB
+    subgraph P["Presentation · Jetpack Compose + MVVM"]
+        Screens["Screens · 20 rutas"]
+        ViewModels["ViewModels + Hilt"]
+        Screens --> ViewModels
+    end
+    subgraph D["Domain · Kotlin puro"]
+        UseCases["Use Cases"]
+        Repos["Repositorios · interfaces"]
+        UseCases --> Repos
+    end
+    subgraph DA["Data"]
+        Room[("Room + SQLCipher")]
+        Prefs["DataStore · EncryptedPrefs"]
+        Sync["Sync · WorkManager + Ktor"]
+    end
+    Server["Ktor Server · PostgreSQL<br/>JWT HS256 · Argon2id · CORS"]
+
+    ViewModels --> UseCases
+    Repos --> Room
+    Repos --> Prefs
+    Repos --> Sync
+    Sync --> Server
 ```
 
 | Capa | Responsabilidad | Módulos |
@@ -209,73 +213,51 @@
 
 ---
 
+<a name="stack"></a>
+
 ## 🛠️ Tech Stack
 
-```
-╔══════════════════════════════════════════════════════════╗
-║  UI                                                      ║
-║  ├─ Jetpack Compose (BOM 2025.03.00)                     ║
-║  ├─ Material3 1.3.1                                      ║
-║  ├─ Vico 2.1.0 (gráficas cartesianas)                   ║
-║  ├─ Coil 2.7.0 (carga de imágenes)                      ║
-║  └─ CameraX 1.4.1 (captura de fotos)                    ║
-║                                                          ║
-║  DATA                                                    ║
-║  ├─ Room 2.6.1 + SQLCipher 4.6.1 (DB cifrada)          ║
-║  ├─ DataStore (preferencias)                            ║
-║  ├─ EncryptedSharedPreferences (config servidor)       ║
-║  └─ WorkManager 2.10.0 (sync en segundo plano)         ║
-║                                                          ║
-║  DI + ASYNC                                              ║
-║  ├─ Hilt 2.53.1                                          ║
-║  └─ Kotlin Coroutines + Flow                             ║
-║                                                          ║
-║  SERVER                                                  ║
-║  ├─ Ktor 3.0.3 (client + server)                        ║
-║  ├─ PostgreSQL (H2 para tests)                          ║
-║  ├─ JWT (HS256) + Argon2id                               ║
-║  └─ Flyway (migraciones)                                ║
-║                                                          ║
-║  TESTING                                                 ║
-║  ├─ JUnit4 + Turbine (Flow testing)                     ║
-║  ├─ MockK (mocking)                                     ║
-║  ├─ Room in-memory + Robolectric                        ║
-║  └─ Ktor Test Host (server integration)                 ║
-║                                                          ║
-║  BUILD                                                   ║
-║  ├─ Kotlin 2.1.0 · AGP 8.13.2                           ║
-║  ├─ minSdk 26 · targetSdk 35                            ║
-║  └─ ProGuard/R8 optimizado                              ║
-╚══════════════════════════════════════════════════════════╝
-```
+| Categoría | Tecnologías |
+|:----------|:------------|
+| **UI** | Jetpack Compose (BOM 2025.03.00) · Material3 1.3.1 · Vico 2.1.0 · Coil 2.7.0 · CameraX 1.4.1 |
+| **Datos** | Room 2.6.1 + SQLCipher 4.6.1 · DataStore · EncryptedSharedPreferences · WorkManager 2.10.0 |
+| **DI + async** | Hilt 2.53.1 · Kotlin Coroutines + Flow |
+| **Backend** | Ktor 3.0.3 · PostgreSQL (H2 en tests) · JWT HS256 + Argon2id · Flyway |
+| **Testing** | JUnit4 · Turbine · MockK · Room in-memory · Robolectric · Ktor Test Host |
+| **Build** | Kotlin 2.1.0 · AGP 8.13.2 · Gradle 8.13 · minSdk 26 / targetSdk 35 · ProGuard-R8 |
 
 ---
+
+<a name="calidad"></a>
 
 ## 📊 Calidad
 
-```
-  ██████╗  █████╗ ████████╗ ██████╗██╗  ██╗
-  ██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██║  ██║
-  ██████╔╝███████║   ██║   ██║     ███████║
-  ██╔══██╗██╔══██║   ██║   ██║     ██╔══██║
-  ██████╔╝██║  ██║   ██║   ╚██████╗██║  ██║
-  ╚═════╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝
-─────────────────────────────────────────────
-  MÉTRICAS DEL PROYECTO
-─────────────────────────────────────────────
-  📦  18 módulos Gradle (Android)
-  🖥️  1 servidor Ktor (proyecto separado)
-  📝  217 archivos Kotlin
-  📏  ~13.300 líneas de código fuente
-  ✅  350 tests unitarios + instrumentados
-     ├─  259 Android (unit + instrumented)
-     └─   91 Server (Ktor + repositories)
-  🔀  20 rutas de navegación
-  🛡️  OWASP Top 10 checklist completo
-─────────────────────────────────────────────
-```
+| Métrica | Valor |
+|:--------|:------|
+| Módulos Gradle | **18** (Android) + servidor Ktor independiente |
+| Archivos Kotlin | **217** (Android + servidor) |
+| Código fuente | **~19.500** líneas |
+| Tests | **341** → 259 Android (243 unit + 16 instrumentados) · 82 servidor |
+| Rutas de navegación | **20** |
+| Integración | CI en GitHub Actions: tests Android + tests de servidor |
 
 ---
+
+<a name="roadmap"></a>
+
+## 🗺️ Roadmap
+
+| Estado | Hito |
+|:------:|:-----|
+| ✅ | **v1.0** — CRUD completo, sync offline-first, seguridad y 341 tests |
+| ✅ | **CI** — tests Android + servidor en cada push / PR |
+| 🔄 | APK de **release firmado** y distribución |
+| ⬜ | **Recordatorios** de mantenimiento (WorkManager + notificaciones) |
+| ⬜ | **Roles y multiusuario** (hoy: usuario `admin` de semilla) |
+
+---
+
+<a name="setup"></a>
 
 ## 🚀 Setup
 
@@ -284,73 +266,87 @@
 git clone git@github.com:DeepZixSoul/fireflow.git
 cd fireflow
 
-# 2. Añadir passphrase de la DB cifrada en local.properties
+# 2. Passphrase de la DB cifrada (obligatoria)
 echo 'DB_PASSPHRASE=TuClaveSeguraAqui!' >> local.properties
 
 # 3. Build del APK debug
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew assembleDebug
+./gradlew assembleDebug
 
-# 4. Ejecutar tests Android
-JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew test
+# 4. Tests Android
+./gradlew test
 
-# 5. Ejecutar tests del servidor
-cd server && ./gradlew test
+# 5. Tests del servidor
+(cd server && ./gradlew test)
 
-# 6. Instalar en dispositivo/emulador
-adb install app/build/outputs/apk/debug/app-debug.apk
+# 6. Instalar en dispositivo o emulador
+adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
-> ⚠️ **Requisitos**: JDK 21, Android SDK 35, `local.properties` con `DB_PASSPHRASE`.
+> ⚠️ **Requisitos**: JDK 21 · Android SDK 35 · `local.properties` con `DB_PASSPHRASE`.
+> En macOS/Windows no hace falta exportar `JAVA_HOME`: usa el JDK 21 de Android Studio
+> (*Settings → Build, Execution, Deployment → Build Tools → Gradle → Gradle JDK*).
 
 ---
 
-## 🔒 Seguridad
-
-```
-🛡️  MEDIDAS IMPLEMENTADAS
-──────────────────────────────────────────────
- 🔑  Argon2id (tCost=3, mCost=64MB) — servidor
- 🔑  BCrypt (cost=10) — seed Android
- 🔐  SQLCipher — base de datos cifrada en disco
- 🔐  EncryptedSharedPreferences — config servidor
- 🎫  JWT HS256 — expiración 15 min
- 📦  BuildConfig.DB_PASSPHRASE — secrets fuera del código
- ⛔  Nada de secrets en .gitignore (local.properties, .env)
- 🚫  .gitignore evita: build/, .kotlin/, APKs, SECURITY_AUDIT
- 🌐  CORS restringido + rate limiting en auth
- 📝  Logging sin PII ni passwords
-──────────────────────────────────────────────
-```
-
----
+<a name="estructura"></a>
 
 ## 📁 Estructura
 
-```
+<details>
+<summary><b>▶ Árbol de módulos</b></summary>
+
+```text
 FireFlow/
 ├── app/                    # Módulo principal, navegación, DI
 ├── core/                   # Config, utils, constants
-├── common/                 # Componentes UI compartidos, tema, tema
+├── common/                 # Componentes UI compartidos y tema
 ├── domain/                 # Entidades, repositorios (interfaces), casos de uso
-├── data/                   # Implementación repos, sync, fuentes de datos
+├── data/                   # Implementación de repos, sync, fuentes de datos
 ├── database/               # Room + SQLCipher, DAOs, migraciones
-├── security/               # Hashing, sesiones, root detection
-├── feature_login/          # Login + cambio contraseña
-├── feature_clientes/       # CRUD clientes
-├── feature_grupos/         # Grupos de presión + motores + curvas
+├── security/               # Hashing, sesiones, cifrado de prefs
+├── feature_login/          # Login + cambio de contraseña
+├── feature_clientes/       # CRUD de clientes
+├── feature_grupos/         # Grupos de presión + motores
 ├── feature_revisiones/     # Revisiones + checklists
 ├── feature_curvas/         # Gráficas de rendimiento
 ├── feature_informes/       # Generación PDF
 ├── feature_exportaciones/  # Exportación CSV
 ├── feature_fotografias/    # Cámara + galería
 ├── feature_historial/      # Búsqueda global
-├── feature_conversiones/   # Convertidor unidades
+├── feature_conversiones/   # Convertidor de unidades
 ├── feature_configuracion/  # Ajustes + sync
 ├── server/                 # Ktor + PostgreSQL (proyecto Gradle separado)
-└── docs/gifs/              # GIFs para este README
+└── docs/gifs/              # GIFs de este README
 ```
 
+</details>
+
 ---
+
+<a name="seguridad"></a>
+
+## 🔒 Seguridad
+
+- 🔑 **Argon2id** (tCost 3 · mCost 64 MB · parallelism 4) en el servidor · **BCrypt** (cost 10) en el seed Android
+- 🔐 **SQLCipher**: base de datos cifrada en disco (passphrase fuera del código vía `BuildConfig.DB_PASSPHRASE`)
+- 🔑 **EncryptedSharedPreferences** para la configuración del servidor
+- 🎫 **JWT HS256** con expiración de 15 minutos
+- 🌐 **CORS** restringido + **rate limiting** en los endpoints de autenticación
+- 📝 **Logging** sin PII, tokens ni contraseñas
+- 📦 Repo limpio: `local.properties`, `.env` y auditorías internas quedan fuera del versionado
+
+| OWASP Top 10 | Medida aplicada |
+|:-------------|:----------------|
+| A01 · Control de acceso | RBAC por rol + *claims* en el JWT |
+| A02 · Fallas criptográficas | Argon2id (servidor) + BCrypt (seed) · SSL/TLS y `sslmode` en producción |
+| A03 · Inyección | Queries parametrizadas (Exposed) |
+| A05 · Fallas de configuración | Secrets en variables de entorno, nunca en código |
+| A07 · Falta de control de acceso | *Lockout* de cuentas + rate limiting por IP |
+| A09 · Falta de registros de seguridad | Logging estructurado sin PII |
+
+---
+
+<a name="licencia"></a>
 
 ## 📝 Licencia
 
@@ -360,14 +356,9 @@ Distribuido bajo la licencia **MIT** — ver [LICENSE](LICENSE) para más detall
 
 <div align="center">
 
-```
-╔═══════════════════════════════════════════════╗
-║   Hecho con 🔥 y Kotlin para la seguridad      ║
-║   contra incendios.                            ║
-║                                               ║
-║   👾 Retro. ⚡ Rápido. 🛡️ Seguro.             ║
-╚═══════════════════════════════════════════════╝
-```
+Hecho con 🔥 y Kotlin para la seguridad contra incendios.
+
+**👾 Retro. ⚡ Rápido. 🛡️ Seguro.**
 
 [![GitHub](https://img.shields.io/badge/GitHub-DeepZixSoul%2Ffireflow-181717?logo=github&style=for-the-badge)](https://github.com/DeepZixSoul/fireflow)
 
