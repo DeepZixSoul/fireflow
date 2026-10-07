@@ -55,49 +55,91 @@
 ## 🎬 Demo
 
 > 🎮 *Grabaciones reales de la app funcionando — sin retoques.*
+> Un bloque por acción: sigue el recorrido a tu ritmo.
 
-### 🔐 Acceso seguro
+### 🔐 Acceso
+
+**01 · Acceso seguro**
 
 <div align="center">
-  <img src="docs/gifs/login.gif" alt="Login con lockout anti-brute-force y cambio de contraseña" width="300"/>
-  <br/>
-  <sub>Semilla <code>admin</code> · lockout a los 5 intentos · cambio de contraseña forzado</sub>
+  <img src="docs/gifs/login.gif" alt="Login con lockout anti-brute-force y cambio de contraseña" width="320"/>
+  <p><sub>Usuario <b>admin</b> · <b>lockout</b> a los 5 intentos · cambio de contraseña forzado</sub></p>
 </div>
+
+---
 
 ### 📋 Altas de clientes y grupos
 
-| | |
-|:---:|:---:|
-| 🧾 **Nuevo cliente** | 🔧 **Nuevo grupo** |
-| ![Alta de cliente](docs/gifs/crear-cliente.gif) | ![Alta de grupo](docs/gifs/crear-grupo.gif) |
-| *Validaciones, CIF/dirección y estado resultante* | *Alta con selector de fechas y tarjeta creada* |
-| | |
-| ⚙️ **Añadir motores** | ⚙️ **Añadir motores · edición** |
-| ![Añadir motores](docs/gifs/anadir-motores.gif) | ![Editar motores](docs/gifs/anadir-motores-2.gif) |
-| *Motores Diésel y Eléctricos en paralelo* | *Potencia, caudal nominal y curvas* |
+**02 · Crear cliente**
+
+<div align="center">
+  <img src="docs/gifs/crear-cliente.gif" alt="Alta de cliente con validaciones" width="320"/>
+  <p><sub>Validaciones de <b>CIF</b> y dirección → tarjeta creada con <b>leyenda de estados</b></sub></p>
+</div>
+
+**03 · Crear grupo**
+
+<div align="center">
+  <img src="docs/gifs/crear-grupo.gif" alt="Alta de grupo de presión" width="320"/>
+  <p><sub><b>Selector de fechas</b> de instalación y mantenimiento → grupo registrado en el cliente</sub></p>
+</div>
+
+**04 · Añadir motores**
+
+<div align="center">
+  <img src="docs/gifs/anadir-motores.gif" alt="Alta de motores diésel y eléctricos" width="320"/>
+  <p><sub>Motores <b>Diésel</b> y <b>Eléctricos</b> en paralelo con sus datos técnicos</sub></p>
+</div>
+
+**05 · Editar motores**
+
+<div align="center">
+  <img src="docs/gifs/anadir-motores-2.gif" alt="Edición de potencia y caudal nominal" width="320"/>
+  <p><sub>Edición de <b>potencia</b> y <b>caudal nominal</b> que alimentan las curvas</sub></p>
+</div>
+
+---
 
 ### 📈 Curvas de presión
 
+**06 · Tabla de presiones y gráfica**
+
 <div align="center">
-  <img src="docs/gifs/curvas.gif" alt="Tabla de presiones y gráfica de rendimiento con Vico" width="330"/>
-  <br/>
-  <sub>Tabla de presiones por motor → gráfica <b>Vico</b> con chips de selector y datos al 0/50/100/140/200%</sub>
+  <img src="docs/gifs/curvas.gif" alt="Tabla de presiones y gráfica de rendimiento con Vico" width="340"/>
+  <p><sub>Tabla por motor → gráfica <b>Vico</b> con chips de selector y datos al 0/50/100/140/200%</sub></p>
 </div>
+
+---
 
 ### 🔧 Operativa diaria
 
-| | |
-|:---:|:---:|
-| 📝 **Revisión** | 🕹️ **Flujo completo** |
-| ![Revisión](docs/gifs/revision.gif) | ![Funcionalidad](docs/gifs/funcionalidad.gif) |
-| *Checklist, fotos, informe PDF y exportación CSV* | *Navegación, estados de color y acciones* |
+**07 · Revisión**
+
+<div align="center">
+  <img src="docs/gifs/revision.gif" alt="Revisión con checklist, fotos y exportaciones" width="320"/>
+  <p><sub><b>Checklist</b> de mantenimiento → fotos, informe <b>PDF</b> y exportación <b>CSV</b></sub></p>
+</div>
+
+---
 
 ### 🧮 Utilidades
 
+**08 · Convertidor de unidades**
+
 <div align="center">
-  <img src="docs/gifs/convertidor.gif" alt="Convertidor de unidades en vivo" width="300"/>
-  <br/>
-  <sub>Conversión <b>en vivo y bidireccional</b>: L/min, m³/h, GPM, psi, bar, kPa, mCA</sub>
+  <img src="docs/gifs/convertidor.gif" alt="Convertidor de unidades en vivo" width="320"/>
+  <p><sub>Conversión <b>en vivo y bidireccional</b>: L/min, m³/h, GPM, psi, bar, kPa, mCA</sub></p>
+</div>
+
+---
+
+### 🕹️ Recorrido general
+
+**09 · Flujo completo**
+
+<div align="center">
+  <img src="docs/gifs/funcionalidad.gif" alt="Recorrido completo por la aplicación" width="320"/>
+  <p><sub>Navegación, <b>estados de color</b> y acciones en un único recorrido</sub></p>
 </div>
 
 ---
