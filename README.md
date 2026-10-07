@@ -23,19 +23,15 @@ Clean Architecture, sincronización offline-first y documentación en PDF/CSV.*
 
 ---
 
-<a name="indice"></a>
-
 ## 📑 Índice
 
 | | | | |
 |:--|:--|:--|:--|
-| [🏆 Highlights](#highlights) | [👾 Acerca](#acerca) | [🎬 Demo](#demo) | [⚡ Características](#caracteristicas) |
-| [🏗️ Arquitectura](#arquitectura) | [🛠️ Tech Stack](#stack) | [📊 Calidad](#calidad) | [🔒 Seguridad](#seguridad) |
-| [🗺️ Roadmap](#roadmap) | [🚀 Setup](#setup) | [📁 Estructura](#estructura) | [📝 Licencia](#licencia) |
+| [🏆 Highlights](#-highlights) | [👾 Acerca](#-acerca-del-proyecto) | [🎬 Demo](#-demo) | [⚡ Características](#-características) |
+| [🏗️ Arquitectura](#️-arquitectura) | [🛠️ Tech Stack](#️-tech-stack) | [📊 Calidad](#-calidad) | [🔒 Seguridad](#-seguridad) |
+| [🗺️ Roadmap](#️-roadmap) | [🚀 Setup](#-setup) | [📁 Estructura](#-estructura) | [📝 Licencia](#-licencia) |
 
 ---
-
-<a name="highlights"></a>
 
 ## 🏆 Highlights
 
@@ -48,8 +44,6 @@ Clean Architecture, sincronización offline-first y documentación en PDF/CSV.*
 
 ---
 
-<a name="acerca"></a>
-
 ## 👾 Acerca del Proyecto
 
 FireFlow resuelve un problema real del sector de **protección contra incendios**: el control y
@@ -60,8 +54,6 @@ mediciones, trabaja **100 % sin conexión** y genera la documentación (PDF/CSV)
 con un backend propio.
 
 ---
-
-<a name="demo"></a>
 
 ## 🎬 Demo
 
@@ -152,8 +144,6 @@ con un backend propio.
 
 ---
 
-<a name="caracteristicas"></a>
-
 ## ⚡ Características
 
 - 🔐 Login seguro con **lockout anti-brute-force**
@@ -172,8 +162,6 @@ con un backend propio.
 - ♿ Accesibilidad y *content descriptions*
 
 ---
-
-<a name="arquitectura"></a>
 
 ## 🏗️ Arquitectura
 
@@ -213,8 +201,6 @@ flowchart TB
 
 ---
 
-<a name="stack"></a>
-
 ## 🛠️ Tech Stack
 
 | Categoría | Tecnologías |
@@ -227,8 +213,6 @@ flowchart TB
 | **Build** | Kotlin 2.1.0 · AGP 8.13.2 · Gradle 8.13 · minSdk 26 / targetSdk 35 · ProGuard-R8 |
 
 ---
-
-<a name="calidad"></a>
 
 ## 📊 Calidad
 
@@ -243,8 +227,6 @@ flowchart TB
 
 ---
 
-<a name="roadmap"></a>
-
 ## 🗺️ Roadmap
 
 | Estado | Hito |
@@ -256,8 +238,6 @@ flowchart TB
 | ⬜ | **Roles y multiusuario** (hoy: usuario `admin` de semilla) |
 
 ---
-
-<a name="setup"></a>
 
 ## 🚀 Setup
 
@@ -287,8 +267,6 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 > (*Settings → Build, Execution, Deployment → Build Tools → Gradle → Gradle JDK*).
 
 ---
-
-<a name="estructura"></a>
 
 ## 📁 Estructura
 
@@ -323,8 +301,6 @@ FireFlow/
 
 ---
 
-<a name="seguridad"></a>
-
 ## 🔒 Seguridad
 
 - 🔑 **Argon2id** (tCost 3 · mCost 64 MB · parallelism 4) en el servidor · **BCrypt** (cost 10) en el seed Android
@@ -345,8 +321,6 @@ FireFlow/
 | A09 · Falta de registros de seguridad | Logging estructurado sin PII |
 
 ---
-
-<a name="licencia"></a>
 
 ## 📝 Licencia
 
