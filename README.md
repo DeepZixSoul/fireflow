@@ -21,9 +21,7 @@
 ![Modules](https://img.shields.io/badge/Modules-18-FF5252?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-FFC107?style=for-the-badge)
 
-```
-> INSERT_SCREENSHOT_OR_GIF_HERE
-```
+<img src="docs/gifs/curvas.gif" alt="FireFlow - Gráfica de curvas de presión" width="330"/>
 
 <br/>
 
@@ -56,24 +54,50 @@
 
 ## 🎬 Demo
 
-> **Coloca tus GIFs en `docs/gifs/` y descomenta/reemplaza los bloques siguientes.**
+> 🎮 *Grabaciones reales de la app funcionando — sin retoques.*
+
+### 🔐 Acceso seguro
 
 <div align="center">
+  <img src="docs/gifs/login.gif" alt="Login con lockout anti-brute-force y cambio de contraseña" width="300"/>
+  <br/>
+  <sub>Semilla <code>admin</code> · lockout a los 5 intentos · cambio de contraseña forzado</sub>
+</div>
+
+### 📋 Altas de clientes y grupos
 
 | | |
 |:---:|:---:|
-| 🔐 **Login seguro** | 📋 **Gestión de clientes** |
-| ![Login](docs/gifs/login.gif) | ![Clientes](docs/gifs/clientes.gif) |
-| *Lockout, cambio de contraseña, seed* | *Pull-to-refresh, búsqueda, estados* |
+| 🧾 **Nuevo cliente** | 🔧 **Nuevo grupo** |
+| ![Alta de cliente](docs/gifs/crear-cliente.gif) | ![Alta de grupo](docs/gifs/crear-grupo.gif) |
+| *Validaciones, CIF/dirección y estado resultante* | *Alta con selector de fechas y tarjeta creada* |
 | | |
-| 📈 **Curvas de presión** | 🧮 **Convertidor de unidades** |
-| ![Curvas](docs/gifs/curvas.gif) | ![Convertidor](docs/gifs/convertidor.gif) |
-| *Gráfico Vico, chips de motor, tabla* | *Conversión en vivo bidireccional* |
-| | |
-| 📄 **Informes y exportación** | 🌙 **Tema oscuro** |
-| ![Acciones](docs/gifs/acciones.gif) | ![Dark](docs/gifs/dark-theme.gif) |
-| *PDF, CSV, cámara, share* | *Tono completo adaptativo* |
+| ⚙️ **Añadir motores** | ⚙️ **Añadir motores · edición** |
+| ![Añadir motores](docs/gifs/anadir-motores.gif) | ![Editar motores](docs/gifs/anadir-motores-2.gif) |
+| *Motores Diésel y Eléctricos en paralelo* | *Potencia, caudal nominal y curvas* |
 
+### 📈 Curvas de presión
+
+<div align="center">
+  <img src="docs/gifs/curvas.gif" alt="Tabla de presiones y gráfica de rendimiento con Vico" width="330"/>
+  <br/>
+  <sub>Tabla de presiones por motor → gráfica <b>Vico</b> con chips de selector y datos al 0/50/100/140/200%</sub>
+</div>
+
+### 🔧 Operativa diaria
+
+| | |
+|:---:|:---:|
+| 📝 **Revisión** | 🕹️ **Flujo completo** |
+| ![Revisión](docs/gifs/revision.gif) | ![Funcionalidad](docs/gifs/funcionalidad.gif) |
+| *Checklist, fotos, informe PDF y exportación CSV* | *Navegación, estados de color y acciones* |
+
+### 🧮 Utilidades
+
+<div align="center">
+  <img src="docs/gifs/convertidor.gif" alt="Convertidor de unidades en vivo" width="300"/>
+  <br/>
+  <sub>Conversión <b>en vivo y bidireccional</b>: L/min, m³/h, GPM, psi, bar, kPa, mCA</sub>
 </div>
 
 ---
