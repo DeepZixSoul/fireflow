@@ -4,14 +4,19 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,6 +27,7 @@ import com.fireflow.common.components.FireFlowBottomBar
 
 object Routes {
     const val LOGIN = "login"
+    const val SETUP = "setup"
     const val CHANGE_PASSWORD = "change_password"
     const val CLIENTS = "clients"
     const val CLIENT_DETAIL = "client/{clientId}"
@@ -62,9 +68,23 @@ private const val ANIM_DURATION = 300
 fun FireFlowNavHost(
     navController: NavHostController = rememberNavController()
 ) {
+    val startDestinationViewModel: StartDestinationViewModel = hiltViewModel()
+    val startDestination by startDestinationViewModel.startDestination.collectAsStateWithLifecycle()
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     val showBottomBar = currentRoute in BOTTOM_NAV_ROUTES
+
+    val destination = startDestination
+    if (destination == null) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+        return
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -87,9 +107,25 @@ fun FireFlowNavHost(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Routes.LOGIN,
+            startDestination = destination,
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable(
+                route = Routes.SETUP,
+                enterTransition = { fadeIn(tween(ANIM_DURATION)) },
+                exitTransition = { fadeOut(tween(ANIM_DURATION)) },
+                popEnterTransition = { fadeIn(tween(ANIM_DURATION)) },
+                popExitTransition = { fadeOut(tween(ANIM_DURATION)) }
+            ) {
+                com.fireflow.login.SetupScreen(
+                    onSetupComplete = {
+                        navController.navigate(Routes.CLIENTS) {
+                            popUpTo(Routes.SETUP) { inclusive = true }
+                        }
+                    }
+                )
+            }
+
             composable(
                 route = Routes.LOGIN,
                 enterTransition = { fadeIn(tween(ANIM_DURATION)) },

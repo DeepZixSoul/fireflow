@@ -6,10 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import com.fireflow.data.sync.SyncWorker
 import com.fireflow.database.dao.ChecklistItemDao
-import com.fireflow.database.dao.UserDao
 import com.fireflow.database.entity.ChecklistItemEntity
-import com.fireflow.database.entity.UserEntity
-import com.fireflow.security.PasswordHasher
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +18,16 @@ import javax.inject.Singleton
 
 private val Context.seedDataStore by preferencesDataStore(name = "seed_state")
 
+/**
+ * Runs one-time initialization tasks: default checklist items and sync scheduling.
+ *
+ * The administrator account is no longer seeded here (R7): it is created on the
+ * first-run setup screen so the app ships with no default credentials.
+ */
 @Singleton
 class AppInitializer @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val userDao: UserDao,
-    private val checklistItemDao: ChecklistItemDao,
-    private val passwordHasher: PasswordHasher
+    private val checklistItemDao: ChecklistItemDao
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -38,28 +39,14 @@ class AppInitializer @Inject constructor(
         scope.launch {
             val seeded = context.seedDataStore.data.first()[Keys.SEEDED] ?: false
             if (!seeded) {
-                seedDefaultData()
+                seedDefaultChecklist()
                 context.seedDataStore.edit { it[Keys.SEEDED] = true }
             }
             SyncWorker.schedule(context)
         }
     }
 
-    private suspend fun seedDefaultData() {
-        if (userDao.getByUsername("admin") == null) {
-            val adminHash = passwordHasher.hash(SeedCredentials.ADMIN_PASSWORD)
-            userDao.insert(
-                UserEntity(
-                    username = "admin",
-                    displayName = "Administrador",
-                    email = "admin@fireflow.com",
-                    passwordHash = adminHash,
-                    role = "ADMIN",
-                    mustChangePassword = true
-                )
-            )
-        }
-
+    private suspend fun seedDefaultChecklist() {
         if (checklistItemDao.getAllEnabled().first().isEmpty()) {
             val items = listOf(
                 ChecklistItemEntity(label = "Se han abierto las válvulas correspondientes.", orderIndex = 0),

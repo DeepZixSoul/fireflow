@@ -18,6 +18,14 @@
     <string name="login_button_locked">Bloqueado (%ds)</string>
     <string name="login_button">Iniciar sesión</string>
 
+    <!-- First-run setup -->
+    <string name="setup_title">Crear administrador</string>
+    <string name="setup_subtitle">Crea la cuenta principal de FireFlow. No hay credenciales por defecto.</string>
+    <string name="setup_confirm_label">Confirmar contraseña</string>
+    <string name="setup_hide_password">Ocultar contraseña</string>
+    <string name="setup_show_password">Mostrar contraseña</string>
+    <string name="setup_button">Crear cuenta</string>
+
     <!-- Change Password -->
     <string name="change_password_title">Cambiar contraseña</string>
     <string name="change_password_subtitle">Debes cambiar tu contraseña para continuar</string>
@@ -262,7 +270,9 @@
     <string name="error_passwords_dont_match">Las contraseñas no coinciden</string>
     <string name="error_password_too_short">La contraseña debe tener al menos 8 caracteres</string>
     <string name="error_change_password">Error al cambiar contraseña</string>
-    <string name="error_password_validation">Error de validación de contraseña</string>
+    <string name="error_password_validation">La contraseña debe tener mayúsculas, minúsculas y al menos un número</string>
+    <string name="error_setup_username">El usuario debe tener al menos 3 caracteres</string>
+    <string name="error_setup_failed">No se pudo crear la cuenta</string>
     <string name="error_geocode">No se pudo determinar la ubicación</string>
     <string name="error_name_required">El nombre es obligatorio</string>
     <string name="error_cif_required">El CIF es obligatorio</string>

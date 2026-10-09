@@ -12,6 +12,9 @@ interface UserDao : BaseDao<UserEntity> {
     @Query("SELECT * FROM users WHERE id = :id")
     suspend fun getById(id: Long): UserEntity?
 
+    @Query("SELECT COUNT(*) FROM users")
+    suspend fun count(): Int
+
     @Query("UPDATE users SET password_hash = :hash, updated_at = :timestamp WHERE id = :id")
     suspend fun updatePassword(id: Long, hash: String, timestamp: Long = System.currentTimeMillis())
 

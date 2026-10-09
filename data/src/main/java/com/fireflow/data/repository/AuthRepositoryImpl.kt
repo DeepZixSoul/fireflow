@@ -1,8 +1,11 @@
 package com.fireflow.data.repository
 
+import com.fireflow.core.util.PasswordValidator
 import com.fireflow.data.mapper.toDomain
 import com.fireflow.database.dao.UserDao
+import com.fireflow.database.entity.UserEntity
 import com.fireflow.domain.model.User
+import com.fireflow.domain.model.UserRole
 import com.fireflow.domain.repository.AuthRepository
 import com.fireflow.security.PasswordHasher
 import com.fireflow.security.SessionManager
@@ -80,5 +83,58 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun clearMustChangePassword(userId: Long) {
         userDao.clearMustChangePassword(userId)
+    }
+
+    override suspend fun hasUsers(): Boolean = userDao.count() > 0
+
+    override suspend fun createAdmin(username: String, password: String): Result<User> {
+        return try {
+            val normalized = username.trim()
+
+            if (normalized.length < MIN_USERNAME_LENGTH) {
+                return Result.failure(
+                    Exception("El usuario debe tener al menos $MIN_USERNAME_LENGTH caracteres")
+                )
+            }
+
+            val validation = PasswordValidator.validate(password)
+            if (!validation.isValid) {
+                return Result.failure(Exception(validation.errors.joinToString(", ")))
+            }
+
+            if (userDao.count() > 0) {
+                return Result.failure(Exception("Ya existe una cuenta en esta instalación"))
+            }
+
+            val id = userDao.insert(
+                UserEntity(
+                    username = normalized,
+                    displayName = normalized,
+                    email = "",
+                    passwordHash = passwordHasher.hash(password),
+                    role = UserRole.ADMIN.name,
+                    isActive = true,
+                    mustChangePassword = false
+                )
+            )
+
+            val entity = userDao.getById(id)
+                ?: return Result.failure(Exception("No se pudo crear la cuenta"))
+
+            val user = entity.toDomain()
+            sessionManager.saveSession(
+                userId = user.id,
+                username = user.username,
+                displayName = user.displayName,
+                role = user.role.name
+            )
+            Result.success(user)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    private companion object {
+        private const val MIN_USERNAME_LENGTH = 3
     }
 }
