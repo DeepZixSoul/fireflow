@@ -19,6 +19,9 @@ android {
         if (localPropsFile.exists()) {
             localProps.load(localPropsFile.inputStream())
         }
+        // Legacy secret: only used to rekey databases created before the
+        // runtime passphrase (DatabasePassphraseProvider). Do not use for new
+        // encryption. Remove once no legacy installations remain.
         val passphrase = localProps.getProperty("DB_PASSPHRASE")
             ?: throw GradleException(
                 "DB_PASSPHRASE not found in local.properties. " +
@@ -47,6 +50,7 @@ dependencies {
     implementation(libs.room.ktx)
     implementation(libs.sqlcipher)
     implementation(libs.sqlite.ktx)
+    implementation(libs.security.crypto)
     implementation(libs.coroutines.core)
     implementation(libs.kotlinx.serialization.json)
 

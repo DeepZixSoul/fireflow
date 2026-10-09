@@ -10,6 +10,9 @@ import com.fireflow.database.MIGRATION_3_4
 import com.fireflow.database.MIGRATION_4_5
 import com.fireflow.database.MIGRATION_5_6
 import com.fireflow.database.MIGRATION_6_7
+import com.fireflow.database.security.DatabasePassphraseProvider
+import com.fireflow.database.security.EncryptedDbPassphraseStore
+import com.fireflow.database.security.SqlCipherDatabaseRekeyer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,7 +33,15 @@ object DatabaseModule {
         @ApplicationContext context: Context
     ): AppDatabase {
         System.loadLibrary("sqlcipher")
-        val passphrase = BuildConfig.DB_PASSPHRASE.toByteArray()
+
+        // Passphrase generated at runtime and stored in the Android Keystore.
+        // BuildConfig.DB_PASSPHRASE is only used to rekey legacy databases.
+        val passphrase = DatabasePassphraseProvider(
+            dbFile = context.getDatabasePath(DB_NAME),
+            store = EncryptedDbPassphraseStore(context),
+            legacyPassphrase = BuildConfig.DB_PASSPHRASE.toByteArray(),
+            rekeyer = SqlCipherDatabaseRekeyer()
+        ).providePassphrase()
         val factory = SupportOpenHelperFactory(passphrase)
 
         return Room.databaseBuilder(
