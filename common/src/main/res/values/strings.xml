@@ -199,6 +199,12 @@
     <string name="settings_sync_title">Sincronización automática</string>
     <string name="settings_sync_on">Activada</string>
     <string name="settings_sync_off">Desactivada</string>
+
+    <!-- Security settings -->
+    <string name="settings_security_title">Seguridad</string>
+    <string name="settings_flag_secure_title">Protección de pantalla</string>
+    <string name="settings_flag_secure_on">Activada: bloquea capturas y grabación</string>
+    <string name="settings_flag_secure_off">Desactivada</string>
     <string name="settings_server_config_title">Servidor</string>
     <string name="settings_server_url_label">URL del servidor</string>
     <string name="settings_server_url_placeholder">https://api.ejemplo.com</string>

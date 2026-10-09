@@ -1,6 +1,7 @@
 package com.fireflow.configuracion
 
 import android.content.Context
+import com.fireflow.domain.repository.SecuritySettingsRepository
 import com.fireflow.domain.repository.SyncManagerRepository
 import com.fireflow.domain.repository.SyncSchedulerRepository
 import com.fireflow.domain.repository.AuthRepository
@@ -32,6 +33,7 @@ class SettingsViewModelTest {
     private lateinit var syncManager: SyncManagerRepository
     private lateinit var syncScheduler: SyncSchedulerRepository
     private lateinit var authRepository: AuthRepository
+    private lateinit var securitySettings: SecuritySettingsRepository
     private lateinit var context: Context
     private lateinit var viewModel: SettingsViewModel
 
@@ -41,12 +43,14 @@ class SettingsViewModelTest {
         syncManager = mockk(relaxed = true)
         syncScheduler = mockk(relaxed = true)
         authRepository = mockk(relaxed = true)
+        securitySettings = mockk(relaxed = true)
         context = mockk(relaxed = true)
 
         coEvery { syncManager.getServerUrl() } returns "https://api.test.com"
         coEvery { syncManager.getAuthToken() } returns "test-token"
         coEvery { syncManager.isSyncEnabled } returns flowOf(true)
         coEvery { syncManager.lastSyncTime } returns flowOf(1000L)
+        every { securitySettings.flagSecureEnabled } returns flowOf(true)
     }
 
     @After
@@ -55,7 +59,7 @@ class SettingsViewModelTest {
     }
 
     private fun createViewModel(): SettingsViewModel {
-        return SettingsViewModel(context, authRepository, syncManager, syncScheduler)
+        return SettingsViewModel(context, authRepository, syncManager, syncScheduler, securitySettings)
     }
 
     @Test
@@ -66,6 +70,7 @@ class SettingsViewModelTest {
         assertEquals("https://api.test.com", viewModel.uiState.value.serverUrl)
         assertEquals("test-token", viewModel.uiState.value.authToken)
         assertTrue(viewModel.uiState.value.syncEnabled)
+        assertTrue(viewModel.uiState.value.flagSecureEnabled)
     }
 
     @Test
@@ -176,5 +181,31 @@ class SettingsViewModelTest {
         viewModel.clearSyncError()
 
         assertNull(viewModel.uiState.value.syncError)
+    }
+    @Test
+    fun `toggleFlagSecure disables screen protection`() = runTest {
+        viewModel = createViewModel()
+        advanceUntilIdle()
+
+        viewModel.toggleFlagSecure()
+        advanceUntilIdle()
+
+        assertFalse(viewModel.uiState.value.flagSecureEnabled)
+        coVerify { securitySettings.setFlagSecureEnabled(false) }
+    }
+
+    @Test
+    fun `toggleFlagSecure enables screen protection`() = runTest {
+        every { securitySettings.flagSecureEnabled } returns flowOf(false)
+
+        viewModel = createViewModel()
+        advanceUntilIdle()
+        assertFalse(viewModel.uiState.value.flagSecureEnabled)
+
+        viewModel.toggleFlagSecure()
+        advanceUntilIdle()
+
+        assertTrue(viewModel.uiState.value.flagSecureEnabled)
+        coVerify { securitySettings.setFlagSecureEnabled(true) }
     }
 }

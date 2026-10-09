@@ -1,6 +1,8 @@
 package com.fireflow.app
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -20,8 +22,10 @@ import androidx.compose.ui.res.stringResource
 import com.fireflow.app.navigation.FireFlowNavHost
 import com.fireflow.common.R
 import com.fireflow.common.theme.FireFlowTheme
+import com.fireflow.domain.repository.SecuritySettingsRepository
 import com.fireflow.security.RootDetector
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,6 +33,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var rootDetector: RootDetector
+
+    @Inject
+    lateinit var securitySettings: SecuritySettingsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +45,22 @@ class MainActivity : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     FireFlowNavHost()
                     RootWarningHost(rootDetector = rootDetector)
+                    FlagSecureEffect(activity = this@MainActivity, flagSecureEnabled = securitySettings.flagSecureEnabled)
                 }
+            }
+        }
+    }
+}
+
+/** Applies FLAG_SECURE while the setting is enabled, blocking screenshots and recording. */
+@Composable
+private fun FlagSecureEffect(activity: Activity, flagSecureEnabled: Flow<Boolean>) {
+    LaunchedEffect(activity) {
+        flagSecureEnabled.collect { enabled ->
+            if (enabled) {
+                activity.window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+            } else {
+                activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
             }
         }
     }

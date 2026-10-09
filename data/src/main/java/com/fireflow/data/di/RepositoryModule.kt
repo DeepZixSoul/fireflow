@@ -9,6 +9,7 @@ import com.fireflow.data.repository.PhotoRepositoryImpl
 import com.fireflow.data.repository.PressureGroupRepositoryImpl
 import com.fireflow.data.repository.PressureMeasurementRepositoryImpl
 import com.fireflow.data.repository.RevisionRepositoryImpl
+import com.fireflow.data.repository.SecuritySettingsRepositoryImpl
 import com.fireflow.data.datasource.RemoteDataSourceImpl
 import com.fireflow.data.sync.SyncManager
 import com.fireflow.data.sync.SyncSchedulerImpl
@@ -21,6 +22,7 @@ import com.fireflow.domain.repository.PhotoRepository
 import com.fireflow.domain.repository.PressureGroupRepository
 import com.fireflow.domain.repository.PressureMeasurementRepository
 import com.fireflow.domain.repository.RevisionRepository
+import com.fireflow.domain.repository.SecuritySettingsRepository
 import com.fireflow.domain.repository.SyncManagerRepository
 import com.fireflow.domain.repository.SyncSchedulerRepository
 import com.fireflow.domain.datasource.RemoteDataSource
@@ -81,4 +83,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindRemoteDataSource(impl: RemoteDataSourceImpl): RemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindSecuritySettingsRepository(impl: SecuritySettingsRepositoryImpl): SecuritySettingsRepository
 }

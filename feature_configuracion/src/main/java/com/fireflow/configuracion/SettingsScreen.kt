@@ -128,6 +128,10 @@ fun SettingsScreen(
             }
 
             item {
+                SecurityCard(uiState, viewModel)
+            }
+
+            item {
                 ServerConfigCard(uiState, viewModel)
             }
 
@@ -367,7 +371,7 @@ private fun InfoCard() {
 }
 
 @Composable
-private fun SettingRow(
+internal fun SettingRow(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     title: String,
     description: String,

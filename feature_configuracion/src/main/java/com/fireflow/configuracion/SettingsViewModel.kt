@@ -5,6 +5,7 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fireflow.domain.repository.AuthRepository
+import com.fireflow.domain.repository.SecuritySettingsRepository
 import com.fireflow.domain.repository.SyncManagerRepository
 import com.fireflow.domain.repository.SyncSchedulerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +25,8 @@ data class SettingsUiState(
     val lastSyncTime: Long = 0L,
     val isSyncing: Boolean = false,
     val syncError: String? = null,
-    val configSaved: Boolean = false
+    val configSaved: Boolean = false,
+    val flagSecureEnabled: Boolean = true
 )
 
 @HiltViewModel
@@ -32,7 +34,8 @@ class SettingsViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val authRepository: AuthRepository,
     private val syncManager: SyncManagerRepository,
-    private val syncScheduler: SyncSchedulerRepository
+    private val syncScheduler: SyncSchedulerRepository,
+    private val securitySettings: SecuritySettingsRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SettingsUiState())
@@ -56,6 +59,20 @@ class SettingsViewModel @Inject constructor(
             syncManager.lastSyncTime.collect { time ->
                 _uiState.value = _uiState.value.copy(lastSyncTime = time)
             }
+        }
+
+        viewModelScope.launch {
+            securitySettings.flagSecureEnabled.collect { enabled ->
+                _uiState.value = _uiState.value.copy(flagSecureEnabled = enabled)
+            }
+        }
+    }
+
+    fun toggleFlagSecure() {
+        val enabled = !_uiState.value.flagSecureEnabled
+        _uiState.value = _uiState.value.copy(flagSecureEnabled = enabled)
+        viewModelScope.launch {
+            securitySettings.setFlagSecureEnabled(enabled)
         }
     }
 
