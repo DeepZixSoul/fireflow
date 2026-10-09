@@ -3,6 +3,7 @@ package com.fireflow.server.services
 import com.fireflow.server.models.request.LoginRequest
 import com.fireflow.server.models.response.LoginResponse
 import com.fireflow.server.repositories.UserRepository
+import com.fireflow.server.repositories.Users
 import com.fireflow.server.utils.JwtUtils
 import com.fireflow.server.utils.PasswordUtils
 import org.slf4j.LoggerFactory
@@ -81,7 +82,7 @@ class AuthService(private val userRepository: UserRepository) {
                 passwordChangedAt = user[com.fireflow.server.repositories.Users.passwordChangedAt]
             )
 
-            logger.info("Login successful for user=${request.username}")
+            logger.info("Login successful (id=${user[Users.id]})")
 
             Result.success(
                 LoginResponse(

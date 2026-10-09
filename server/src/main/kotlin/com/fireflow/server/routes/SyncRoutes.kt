@@ -42,8 +42,7 @@ private suspend inline fun <reified T> ApplicationCall.handleSync(
             return
         }
 
-        val username = principal.payload.getClaim("username").asString()
-        logger.debug("{} sync request from user: {}", entityName, username)
+        logger.debug("{} sync request from user id={}", entityName, principal.payload.subject)
 
         val request = receive<SyncRequest<T>>()
 

@@ -60,10 +60,17 @@ class PasswordUtilsTest {
     }
 
     @Test
-    fun `validatePassword accepts password with only length and digit`() {
+    fun `validatePassword rejects password without uppercase`() {
         val result = PasswordUtils.validatePassword("admin123")
-        assertTrue(result.isValid)
-        assertTrue(result.errors.isEmpty())
+        assertFalse(result.isValid)
+        assertTrue(result.errors.any { it.contains("mayúscula") })
+    }
+
+    @Test
+    fun `validatePassword rejects password without lowercase`() {
+        val result = PasswordUtils.validatePassword("ADMIN123")
+        assertFalse(result.isValid)
+        assertTrue(result.errors.any { it.contains("minúscula") })
     }
 
     @Test

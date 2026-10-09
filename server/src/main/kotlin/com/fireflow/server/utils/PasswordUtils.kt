@@ -19,6 +19,12 @@ object PasswordUtils {
         if (password.length < MIN_PASSWORD_LENGTH) {
             errors.add("Mínimo $MIN_PASSWORD_LENGTH caracteres")
         }
+        if (!password.any { it.isUpperCase() }) {
+            errors.add("Al menos una mayúscula")
+        }
+        if (!password.any { it.isLowerCase() }) {
+            errors.add("Al menos una minúscula")
+        }
         if (!password.any { it.isDigit() }) {
             errors.add("Al menos un número")
         }

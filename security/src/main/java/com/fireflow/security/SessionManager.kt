@@ -34,7 +34,6 @@ class SessionManager @Inject constructor(
         const val USERNAME = "username"
         const val DISPLAY_NAME = "display_name"
         const val ROLE = "role"
-        const val TOKEN = "token"
         const val SESSION_CREATED_AT = "session_created_at"
     }
 
@@ -53,15 +52,13 @@ class SessionManager @Inject constructor(
         userId: Long,
         username: String,
         displayName: String,
-        role: String,
-        token: String = ""
+        role: String
     ) {
         prefs.edit().apply {
             putLong(Keys.USER_ID, userId)
             putString(Keys.USERNAME, username)
             putString(Keys.DISPLAY_NAME, displayName)
             putString(Keys.ROLE, role)
-            putString(Keys.TOKEN, token)
             putLong(Keys.SESSION_CREATED_AT, System.currentTimeMillis())
             apply()
         }

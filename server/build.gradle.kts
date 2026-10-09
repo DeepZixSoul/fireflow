@@ -2,6 +2,19 @@ plugins {
     kotlin("jvm") version "2.1.0"
     kotlin("plugin.serialization") version "2.1.0"
     id("io.ktor.plugin") version "3.0.3"
+    id("org.owasp.dependencycheck") version "12.2.2"
+}
+
+val nvdApiKey: String? = System.getenv("NVD_API_KEY")
+
+dependencyCheck {
+    failBuildOnCVSS.set(7f)
+    skipTestGroups.set(true)
+    if (!nvdApiKey.isNullOrBlank()) {
+        nvd {
+            apiKey.set(nvdApiKey)
+        }
+    }
 }
 
 group = "com.fireflow"
