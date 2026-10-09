@@ -1,5 +1,6 @@
 package com.fireflow.data.di
 
+import com.fireflow.data.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,6 +9,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
@@ -34,6 +36,10 @@ object NetworkModule {
             requestTimeoutMillis = 30000
             connectTimeoutMillis = 10000
         }
-        install(Logging)
+        if (BuildConfig.DEBUG) {
+            install(Logging) {
+                sanitizeHeader { header -> header == HttpHeaders.Authorization }
+            }
+        }
     }
 }
