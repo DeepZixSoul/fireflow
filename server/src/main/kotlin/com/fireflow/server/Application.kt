@@ -23,14 +23,46 @@ import io.ktor.server.netty.*
 import io.ktor.server.routing.*
 import org.slf4j.LoggerFactory
 
+private const val SERVER_HOST = "0.0.0.0"
+
 fun main() {
     val logger = LoggerFactory.getLogger("FireFlowServer")
     val config = ServerConfig.fromEnvironment()
 
-    logger.info("Starting FireFlow Server on port ${config.port}...")
+    logger.info("Starting FireFlow Server...")
 
-    embeddedServer(Netty, port = config.port, host = "0.0.0.0", module = Application::module)
-        .start(wait = true)
+    embeddedServer(
+        Netty,
+        applicationEnvironment { log = logger },
+        configure = {
+            val ssl = config.ssl
+            connector {
+                host = SERVER_HOST
+                port = config.port
+            }
+            if (ssl == null) {
+                logger.warn(
+                    "TLS not configured (SSL_KEYSTORE) — serving plain HTTP on port ${config.port}"
+                )
+            } else {
+                val keyStore = ssl.loadKeyStore()
+                sslConnector(
+                    keyStore = keyStore,
+                    keyAlias = ssl.keyAlias,
+                    keyStorePassword = { ssl.keystorePassword.toCharArray() },
+                    privateKeyPassword = { ssl.privateKeyPassword.toCharArray() }
+                ) {
+                    host = SERVER_HOST
+                    port = config.portSSL
+                }
+                logger.info(
+                    "TLS enabled — HTTPS on port ${config.portSSL}, " +
+                        "HTTP kept on port ${config.port} for health checks"
+                )
+            }
+        },
+        module = Application::module
+    ).start(wait = true)
 }
 
 fun Application.module() {

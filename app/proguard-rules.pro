@@ -30,3 +30,8 @@
     public static int d(...);
     public static int i(...);
 }
+
+# Tink (via security-crypto): annotation/management classes absent on Android
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn java.lang.management.ManagementFactory
+-dontwarn java.lang.management.RuntimeMXBean

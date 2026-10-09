@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Debug builds only: cleartext allowed so the app can reach a LAN server
+  over http://192.168.x.x:9090 during development.
+  Release builds use src/main (cleartext disabled) plus the optional pin-set
+  generated from SERVER_PIN_* properties.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

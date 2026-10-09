@@ -4,6 +4,7 @@ services:
     container_name: fireflow-server
     ports:
       - "9090:9090"
+      - "8443:8443"
     environment:
       - DATABASE_URL=jdbc:postgresql://db:5432/fireflow_db
       - DB_USER=${DB_USER:-fireflow}
@@ -13,6 +14,13 @@ services:
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-}
       - ADMIN_INITIAL_USERNAME=${ADMIN_INITIAL_USERNAME:-admin}
       - ADMIN_INITIAL_PASSWORD=${ADMIN_INITIAL_PASSWORD}
+      - SERVER_PORT_SSL=${SERVER_PORT_SSL:-8443}
+      - SSL_KEYSTORE=${SSL_KEYSTORE:-}
+      - SSL_KEY_ALIAS=${SSL_KEY_ALIAS:-}
+      - SSL_KEYSTORE_PASSWORD=${SSL_KEYSTORE_PASSWORD:-}
+      - SSL_PRIVATE_KEY_PASSWORD=${SSL_PRIVATE_KEY_PASSWORD:-}
+    volumes:
+      - ${KEYSTORE_DIR:-./keystore}:/app/keystore:ro
     depends_on:
       db:
         condition: service_healthy

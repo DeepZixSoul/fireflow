@@ -4,7 +4,8 @@ data class ServerConfig(
     val port: Int = 9090,
     val portSSL: Int = 8443,
     val database: DatabaseConnectionConfig = DatabaseConnectionConfig(),
-    val jwt: JwtConfig = JwtConfig()
+    val jwt: JwtConfig = JwtConfig(),
+    val ssl: SslConfig? = null
 ) {
     companion object {
         fun fromEnvironment(): ServerConfig {
@@ -12,7 +13,8 @@ data class ServerConfig(
                 port = System.getenv("SERVER_PORT")?.toIntOrNull() ?: 9090,
                 portSSL = System.getenv("SERVER_PORT_SSL")?.toIntOrNull() ?: 8443,
                 database = DatabaseConnectionConfig.fromEnvironment(),
-                jwt = JwtConfig.fromEnvironment()
+                jwt = JwtConfig.fromEnvironment(),
+                ssl = SslConfig.fromEnvironment()
             )
         }
     }

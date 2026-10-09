@@ -1,3 +1,11 @@
+import java.util.Properties
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,6 +13,105 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
 }
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) file.inputStream().use { load(it) }
+}
+
+fun propertyValue(name: String): String? =
+    (providers.gradleProperty(name).orNull ?: localProperties.getProperty(name))
+        ?.takeIf { it.isNotBlank() }
+
+val SHA256_BASE64 = Regex("^[A-Za-z0-9+/]{43}=$")
+
+// Certificate pinning for the release variant (R4). Optional: without these
+// properties the release build only enforces TLS (cleartext disabled).
+val serverPinDomain = propertyValue("SERVER_PIN_DOMAIN")
+val serverPinSha256 = propertyValue("SERVER_PIN_SHA256")
+val serverPinBackupSha256 = propertyValue("SERVER_PIN_BACKUP_SHA256")
+val serverPinExpiration = propertyValue("SERVER_PIN_EXPIRATION")
+
+require((serverPinDomain == null) == (serverPinSha256 == null)) {
+    "SERVER_PIN_DOMAIN y SERVER_PIN_SHA256 deben definirse juntos (local.properties o -P)"
+}
+serverPinSha256?.let {
+    require(SHA256_BASE64.matches(it)) {
+        "SERVER_PIN_SHA256 debe ser un hash SHA-256 en base64 (44 caracteres)"
+    }
+}
+serverPinBackupSha256?.let {
+    require(SHA256_BASE64.matches(it)) {
+        "SERVER_PIN_BACKUP_SHA256 debe ser un hash SHA-256 en base64 (44 caracteres)"
+    }
+}
+
+abstract class GenerateNetworkSecurityConfigTask : DefaultTask() {
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @get:Input
+    abstract val domain: Property<String>
+
+    @get:Input
+    abstract val pin: Property<String>
+
+    @get:Input
+    abstract val backupPin: Property<String>
+
+    @get:Input
+    abstract val expiration: Property<String>
+
+    @TaskAction
+    fun generate() {
+        val xmlFile = outputDir.get().asFile.resolve("xml/network_security_config.xml")
+        xmlFile.parentFile.mkdirs()
+
+        val domainValue = domain.get()
+        val pinValue = pin.get()
+        if (domainValue.isEmpty() || pinValue.isEmpty()) {
+            xmlFile.delete()
+            return
+        }
+
+        val backupPinValue = backupPin.get()
+            .takeIf { it.isNotEmpty() }
+            ?.let { "\n            <pin digest=\"SHA-256\">$it</pin>" }
+            .orEmpty()
+        val expirationValue = expiration.get()
+            .takeIf { it.isNotEmpty() }
+            ?.let { " expiration=\"$it\"" }
+            .orEmpty()
+
+        xmlFile.writeText(
+            """
+            |<?xml version="1.0" encoding="utf-8"?>
+            |<network-security-config>
+            |    <base-config cleartextTrafficPermitted="false">
+            |        <trust-anchors>
+            |            <certificates src="system" />
+            |        </trust-anchors>
+            |    </base-config>
+            |    <domain-config>
+            |        <domain includeSubdomains="true">$domainValue</domain>
+            |        <pin-set$expirationValue>
+            |            <pin digest="SHA-256">$pinValue</pin>$backupPinValue
+            |        </pin-set>
+            |    </domain-config>
+            |</network-security-config>
+            |""".trimMargin()
+        )
+    }
+}
+
+val generateReleaseNetworkSecurityConfig =
+    tasks.register<GenerateNetworkSecurityConfigTask>("generateReleaseNetworkSecurityConfig") {
+        outputDir.set(layout.buildDirectory.dir("generated/res/releaseNetSec"))
+        domain.set(serverPinDomain ?: "")
+        pin.set(serverPinSha256 ?: "")
+        backupPin.set(serverPinBackupSha256 ?: "")
+        expiration.set(serverPinExpiration ?: "")
+    }
 
 android {
     namespace = "com.fireflow"
@@ -46,6 +153,14 @@ android {
 
     buildFeatures {
         compose = true
+    }
+}
+
+androidComponents {
+    onVariants(selector().withBuildType("release")) { variant ->
+        variant.sources.res?.addGeneratedSourceDirectory(
+            generateReleaseNetworkSecurityConfig
+        ) { it.outputDir }
     }
 }
 
