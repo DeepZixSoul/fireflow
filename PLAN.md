@@ -271,3 +271,90 @@ curve_points (BIGINT PK, revision_id FK → revisions, motor_id FK)
 
 La auditoría completa de seguridad (25 vulnerabilidades resueltas, SEC-1 a SEC-6) y el backlog de mejoras están documentados en `SECURITY_AUDIT.md` (archivo privado, no incluido en el repositorio público).
 
+---
+
+## 15. Auditoría de seguridad — remediación por fases (TRABAJO EN CURSO)
+
+> Guardado el 2026-10-09 por la noche. Leer esto junto a `SECURITY_AUDIT.md`
+> (privado) para retomar. Todas las decisiones del usuario ya están cerradas.
+
+### Decisiones aprobadas (no volver a preguntar)
+
+1. Ejecutar todo el plan por fases, con commit + tests en verde por fase.
+2. Informes: `SECURITY_AUDIT.md` privado (gitignored) + `SECURITY.md` público nuevo.
+3. Eliminar la semilla `admin123` del servidor; admin desde variable de entorno.
+4. Añadir OWASP `dependencyCheckAnalyze` a la CI.
+5. Android: pantalla de primer arranque "Crear administrador" (sin contraseña en el APK).
+6. TLS nativo en Ktor (`sslConnector`) + certificate pinning por variante (cleartext solo debug/LAN).
+
+### Progreso de fases
+
+| Fase | Contenido | Commit |
+|------|-----------|--------|
+| F0 | Baseline de tests | ✅ |
+| F1a | Servidor sin semilla + `ADMIN_INITIAL_*` + `TestSeed` | `af656de` |
+| F1b | Pantalla de primer arranque (sin credenciales en APK) | `6e7e837` |
+| F2a | Logging de red saneado (sin `Authorization`) | `43f6b41` |
+| F2b | CORS allow-list exacta, fail-closed en prod | `9ed11a4` |
+| F2c | Passphrase SQLCipher en Keystore + rekey legacy | `5052b70` |
+| F2d | TLS Ktor + cleartext por variante + pin-set release | `ee1ec4c` |
+| F3a | `POST /api/v1/auth/change-password` (+ rate limit, revoca tokens) | `b9a0c0f` |
+| F3b | `RootDetector` con aviso no bloqueante (6 tests) | `cc3160d` |
+| F3c | `FLAG_SECURE` con interruptor en Ajustes (on por defecto) | `2e170b3` |
+| F3d | Job CI `security-scan` con dependency-check | `73f1b93` |
+| F4 | PII en logs, política unificada, limpieza, README/skills/AGENTS, informes | `571f28c` + `6df9b44` + `2d06018` |
+| F5 | Verificación final | ⬜ EN CURSO |
+
+**Todo está commiteado y pusheado**: HEAD = `2d06018` en `main` (push `bdd5a2d..2d06018`).
+
+### Contadores de tests actuales (medidos, no los de la sección 4)
+
+- Android unit (debug): **269** + instrumentados **16** = **285**
+- Servidor: **108** → Total **393** (README ya actualizado a 393)
+- Comandos (siempre con JDK 21, el 25 rompe Kotlin 2.1):
+  `JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew test` (raíz)
+  `cd server && JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 ./gradlew test`
+  Ambos: `BUILD SUCCESSFUL` (última ejecución real, sin cambios de código desde).
+
+### Estado en el momento de guardar
+
+- **CI (run 37944911394)**: `Server tests` ✅ · `Android unit tests` ✅ ·
+  `OWASP dependency check` **todavía en curso** (descarga de la BD NVD sin API key,
+  20–30 min la primera vez). Consultar con:
+  `curl -s https://api.github.com/repos/DeepZixSoul/fireflow/actions/runs/37944911394/jobs`
+  - Si falla por CVEs ≥ 7: leer el informe (artefacto `dependency-check-reports`),
+    decidir con el usuario (actualizar dependencias vs subir `failBuildOnCVSS`) y
+    anotarlo en `SECURITY_AUDIT.md`.
+- **Escaneo local** en background (encadenado `:app` → `server`): log
+  `/tmp/opencode/dc-all.log`. Si murió, re-ejecutar:
+  `JAVA_HOME=... ./gradlew :app:dependencyCheckAnalyze` y luego en `server/`.
+  Plugin fijado en **12.2.2** (13.0.0 exige `NVD_API_KEY`; sin key lanza
+  `Invalid API Key, length of 0`). Subir a 13.x cuando exista el secreto.
+- **Preguntar mañana**: si el usuario quiere registrar una API key gratuita de NVD
+  y añadirla como secreto `NVD_API_KEY` (acelera el escaneo y permite subir de versión).
+- **grep de secretos en el árbol**: limpio (solo fixtures `admin123` en tests;
+  sin keystores, JWTs ni claves trackeados).
+
+### F5 — checklist de mañana
+
+1. Confirmar CI verde completo (job OWASP) y guardar resultado en `SECURITY_AUDIT.md`.
+2. Smoke manual en emulador (AVD `Pixel_10`; se paró al guardar, relanzar con
+   `~/Android/Sdk/emulator/emulator -avd Pixel_10`):
+   - `JAVA_HOME=... ./gradlew :app:installDebug`
+   - `adb shell am start -n com.fireflow.debug/com.fireflow.app.MainActivity`
+   - Pantalla inicial debe ser **"Crear administrador"** (verificar con
+     `adb shell uiautomator dump && adb shell cat /sdcard/window_dump.xml | grep -o "Crear administrador"`).
+   - `FLAG_SECURE`: `adb shell dumpsys window | grep -i flag_secure` debe aparecer
+     (o `screencap` debe salir negro).
+   - Terminar con `adb emu kill`.
+3. Marcar F5 ✅ en `SECURITY_AUDIT.md` (tabla de progreso) y en esta sección.
+4. Commit final + push; comprobar CI otra vez.
+
+### Notas sueltas
+
+- El commit `571f28c` arrastró `server/build.gradle.kts` (plugin OWASP del
+  servidor) por un `git add server`; sin impacto, no reescribir historia.
+- Cambio de contraseña en Android es **solo local** (Room) y no llama al
+  servidor; documentado como trabajo futuro en `SECURITY_AUDIT.md` y `SECURITY.md`.
+- No hay secret scanning automático a propósito (secretos históricos conocidos
+  dejarían la CI en rojo); mitigado con el grep manual de arriba + rotación.
