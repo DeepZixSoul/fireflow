@@ -22,6 +22,12 @@ class UserRepository(private val database: Database) {
         }
     }
 
+    fun count(): Long {
+        return transaction(database) {
+            Users.selectAll().count()
+        }
+    }
+
     fun updatePassword(userId: Long, passwordHash: String) {
         val now = System.currentTimeMillis()
         transaction(database) {

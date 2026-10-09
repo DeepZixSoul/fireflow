@@ -1,5 +1,6 @@
 package com.fireflow.server
 
+import com.fireflow.server.bootstrap.AdminBootstrap
 import com.fireflow.server.config.ServerConfig
 import com.fireflow.server.config.DatabaseManager
 import com.fireflow.server.features.configureCORS
@@ -48,6 +49,9 @@ fun Application.module() {
     val groupRepository = PressureGroupRepository(database)
     val revisionRepository = RevisionRepository(database)
     val curveRepository = CurveRepository(database)
+
+    // First admin account (no default credentials ship with the server)
+    AdminBootstrap.ensureAdminExists(userRepository)
 
     // Services
     val authService = AuthService(userRepository)

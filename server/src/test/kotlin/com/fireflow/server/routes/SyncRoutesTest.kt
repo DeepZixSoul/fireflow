@@ -1,5 +1,6 @@
 package com.fireflow.server.routes
 
+import com.fireflow.server.TestSeed
 import com.fireflow.server.config.DatabaseManager
 import com.fireflow.server.config.DatabaseConnectionConfig
 import com.fireflow.server.config.JwtConfig
@@ -51,7 +52,9 @@ class SyncRoutesTest {
         syncService = SyncService(clientRepo, groupRepo, revisionRepo, curveRepo)
 
         JwtUtils.init(JwtConfig(secret = jwtSecret))
-        token = JwtUtils.generateToken(1L, "testuser", "admin")
+        val userRepository = UserRepository(database)
+        val userId = TestSeed.seedAdmin(userRepository)
+        token = JwtUtils.generateToken(userId, TestSeed.ADMIN_USERNAME, "admin")
     }
 
     @AfterAll

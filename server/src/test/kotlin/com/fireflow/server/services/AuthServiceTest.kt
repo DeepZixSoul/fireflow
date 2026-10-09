@@ -4,6 +4,7 @@ import com.fireflow.server.config.DatabaseManager
 import com.fireflow.server.config.DatabaseConnectionConfig
 import com.fireflow.server.config.JwtConfig
 import com.fireflow.server.models.request.LoginRequest
+import com.fireflow.server.TestSeed
 import com.fireflow.server.repositories.UserRepository
 import com.fireflow.server.utils.JwtUtils
 import org.junit.jupiter.api.AfterAll
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.TestInstance
 class AuthServiceTest {
 
     private lateinit var authService: AuthService
+    private var adminId: Long = 0
 
     @BeforeAll
     fun setup() {
@@ -29,6 +31,7 @@ class AuthServiceTest {
         JwtUtils.init(JwtConfig(secret = "test-secret-key-for-testing-only-1234567890"))
         val userRepository = UserRepository(DatabaseManager.getDatabase())
         authService = AuthService(userRepository)
+        adminId = TestSeed.seedAdmin(userRepository)
     }
 
     @AfterAll
@@ -43,7 +46,7 @@ class AuthServiceTest {
 
     @Test
     fun `login with valid admin credentials succeeds`() {
-        val result = authService.login(LoginRequest("admin", "admin123"))
+        val result = authService.login(LoginRequest(TestSeed.ADMIN_USERNAME, TestSeed.ADMIN_PASSWORD))
         assertTrue(result.isSuccess)
 
         val response = result.getOrNull()!!
@@ -86,27 +89,27 @@ class AuthServiceTest {
 
     @Test
     fun `change password succeeds with valid password`() {
-        val result = authService.changePassword(1L, "NewPass123")
+        val result = authService.changePassword(adminId, "NewPass123")
         assertTrue(result.isSuccess)
 
         val loginResult = authService.login(LoginRequest("admin", "NewPass123"))
         assertTrue(loginResult.isSuccess)
 
         // Restore original password for other tests
-        val restoreResult = authService.changePassword(1L, "admin123")
+        val restoreResult = authService.changePassword(adminId, TestSeed.ADMIN_PASSWORD)
         assertTrue(restoreResult.isSuccess)
     }
 
     @Test
     fun `change password fails with too short password`() {
-        val result = authService.changePassword(1L, "ab1")
+        val result = authService.changePassword(adminId, "ab1")
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull()?.message?.contains("Password inválido") == true)
     }
 
     @Test
     fun `change password fails without digit`() {
-        val result = authService.changePassword(1L, "nodigit")
+        val result = authService.changePassword(adminId, "nodigit")
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull()?.message?.contains("número") == true)
     }

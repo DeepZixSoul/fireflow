@@ -1,5 +1,6 @@
 package com.fireflow.server.routes
 
+import com.fireflow.server.TestSeed
 import com.fireflow.server.config.DatabaseManager
 import com.fireflow.server.config.DatabaseConnectionConfig
 import com.fireflow.server.config.JwtConfig
@@ -37,6 +38,7 @@ class AuthRoutesTest {
         JwtUtils.init(JwtConfig(secret = "test-secret-key-for-testing-only-1234567890"))
         val userRepository = UserRepository(DatabaseManager.getDatabase())
         authService = AuthService(userRepository)
+        TestSeed.seedAdmin(userRepository)
     }
 
     @AfterAll
@@ -57,7 +59,7 @@ class AuthRoutesTest {
 
         val response = client.post("/api/v1/auth/login") {
             contentType(ContentType.Application.Json)
-            setBody("""{"username":"admin","password":"admin123"}""")
+            setBody("""{"username":"${TestSeed.ADMIN_USERNAME}","password":"${TestSeed.ADMIN_PASSWORD}"}""")
         }
 
         assertEquals(HttpStatusCode.OK, response.status)
