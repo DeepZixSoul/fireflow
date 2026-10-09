@@ -26,6 +26,11 @@
     <string name="setup_show_password">Mostrar contraseña</string>
     <string name="setup_button">Crear cuenta</string>
 
+    <!-- Root warning -->
+    <string name="root_warning_title">Dispositivo con root detectado</string>
+    <string name="root_warning_message">Este dispositivo está rooteado. FireFlow seguirá funcionando, pero la seguridad de los datos almacenados puede verse comprometida.</string>
+    <string name="root_warning_ack">Entendido</string>
+
     <!-- Change Password -->
     <string name="change_password_title">Cambiar contraseña</string>
     <string name="change_password_subtitle">Debes cambiar tu contraseña para continuar</string>
