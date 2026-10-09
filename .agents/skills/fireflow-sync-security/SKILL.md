@@ -52,7 +52,7 @@ fun verify(password: String, encodedHash: String): Boolean {
 File: `security/src/main/java/.../SessionManager.kt`
 
 - `@Singleton class SessionManager @Inject constructor(@ApplicationContext)`
-- Stores in DataStore (`session`): userId, username, displayName, role, token
+- Stores in EncryptedSharedPreferences (`fireflow_secure_session`): userId, username, displayName, role
 - Provides `Flow<Long?>` for reactive user ID observation
 - Functions: `saveSession()`, `clearSession()`, `isLoggedIn()`, `getUserId()`
 
@@ -60,7 +60,7 @@ File: `security/src/main/java/.../SessionManager.kt`
 
 File: `security/src/main/java/.../RootDetector.kt`
 
-Checks: build tags (`test-keys`), known root apps, su binary presence. Not yet integrated into app flow (planned for premium security build).
+Checks: build tags (`test-keys`), known root apps, su binary presence. Integrated en `MainActivity`: diálogo no bloqueante una vez por sesión.
 
 ## Offline Sync (Ktor + WorkManager)
 
@@ -68,7 +68,7 @@ Checks: build tags (`test-keys`), known root apps, su binary presence. Not yet i
 - Ktor `HttpClient` configured in `SyncModule`
 - Endpoints (POST): clients, pressure_groups, revisions, curve_points
 - Each returns `Result<Unit>` with error handling
-- **Certificate pinning NOT yet implemented** (must be added before production)
+- **Certificate pinning** en release (pin-set generado en build); cleartext solo en debug
 
 ### SyncManager (`data/src/main/java/.../sync/SyncManager.kt`)
 - Orchestrates full/partial sync
@@ -90,7 +90,7 @@ Checks: build tags (`test-keys`), known root apps, su binary presence. Not yet i
 
 ## Critical Security Notes
 
-- **DB passphrase** hardcoded in `DatabaseModule` → must move to Android Keystore
-- **Admin seed credentials** hardcoded in `AppInitializer` → must force password change on first login
-- **Certificate pinning** not implemented → required for production
-- **No HTTPS enforcement** beyond `network_security_config.xml` (cleartext blocked at system level)
+- **DB passphrase**: aleatoria en Android Keystore con rekey desde `DB_PASSPHRASE` legacy (`database/security/`)
+- **Primer arranque**: sin credenciales en el APK; `SetupScreen` crea el administrador en el dispositivo
+- **Certificate pinning**: pin-set en release (`SERVER_PIN_*` en `app/build.gradle.kts`); cleartext solo debug
+- **HTTPS**: release exige TLS; el servidor expone `sslConnector` cuando hay keystore

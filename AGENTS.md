@@ -201,7 +201,7 @@ Al trabajar en `server/`, seguir obligatoriamente las guidelines del skill `fire
 
 1. **Secrets**: Variables de entorno SIEMPRE. Nunca en código fuente.
 2. **JWT**: HS256 con secret >= 256 bits. Expiración 15 min.
-3. **Passwords**: Argon2id (tCost=3, mCost=64MB, parallelism=4).
+3. **Passwords**: BCrypt cost 12 en el servidor (el cliente Android usa Argon2id).
 4. **Queries**: Exposed parametrizadas. Nunca concatenación de strings.
 5. **Docker**: Multi-stage build, non-root user, read-only filesystem.
 6. **HTTPS**: Obligatorio en producción. Let's Encrypt.

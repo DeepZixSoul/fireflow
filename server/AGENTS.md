@@ -8,7 +8,7 @@
 - **DB**: PostgreSQL 16
 - **Migrations**: Flyway 10.20.1
 - **Auth**: JWT (Bearer tokens, java-jwt 4.4.0)
-- **Password**: BCrypt (jBCrypt 0.10.2, cost=10)
+- **Password**: BCrypt (`at.favre.lib:bcrypt` 0.10.2, cost=12)
 - **Container**: Docker + Docker Compose
 - **Build**: Gradle (Kotlin DSL)
 - **Port**: 9090
@@ -29,9 +29,9 @@ server/
 │   ├── services/               # Business logic (AuthService, SyncService)
 │   └── utils/                  # JwtUtils, PasswordUtils
 ├── src/main/resources/
-│   ├── db/migration/           # Flyway SQL files (V1-V5)
+│   ├── db/migration/           # Flyway SQL files (V1-V7)
 │   └── logback.xml             # Structured logging
-├── src/test/kotlin/            # 70 tests (routes, services, repos, utils)
+├── src/test/kotlin/            # 108 tests (routes, services, repos, utils)
 ├── Dockerfile                  # Multi-stage, non-root (appuser:1001)
 ├── docker-compose.yml          # Ktor + PostgreSQL 16
 └── build.gradle.kts
@@ -44,8 +44,16 @@ server/
 ### POST /api/v1/auth/login
 
 ```json
-Request:  { "username": "admin", "password": "<seed-password>" }
+Request:  { "username": "admin", "password": "<ADMIN_INITIAL_PASSWORD>" }
 Response: { "token": "...", "expiresIn": 900000, "role": "admin", "username": "admin", "mustChangePassword": true }
+```
+
+### POST /api/v1/auth/change-password
+
+```json
+Headers:  Authorization: Bearer <token>
+Request:  { "oldPassword": "...", "newPassword": "..." }
+Response: { "message": "..." }   # invalida todos los tokens emitidos
 ```
 
 ### POST /api/v1/{collection}/sync
@@ -73,7 +81,7 @@ Response: { "status": "ok", "timestamp": "1712345678000", "version": "1.0.0" }
 
 - [ ] No hay secrets hardcodeados
 - [ ] Queries usan Exposed parametrizado
-- [ ] JWT expiration <= 30 min
+- [ ] JWT expiration <= 15 min
 - [ ] Logging sin PII
 
 ### Antes de cada Deploy
@@ -84,7 +92,7 @@ Response: { "status": "ok", "timestamp": "1712345678000", "version": "1.0.0" }
 - [ ] Docker: health check OK (wget)
 - [ ] Docker: mem_limit + cpus set
 - [ ] CORS: ALLOWED_ORIGINS configured
-- [ ] Rate limiting: 5 req/min on /login
+- [ ] Rate limiting: 5 req/min on /login y /change-password
 - [ ] Flyway migrations probadas
 
 ---
@@ -97,7 +105,12 @@ JWT_SECRET=>=32 chars
 DATABASE_URL=jdbc:postgresql://db:5432/fireflow
 DB_USER=fireflow
 DB_PASSWORD=>=16 chars
+ENVIRONMENT=production           # CORS fail-closed
 ALLOWED_ORIGINS=http://localhost:3000  # CORS whitelist
+ADMIN_INITIAL_USERNAME=admin     # primer admin (sin semillas en Flyway)
+ADMIN_INITIAL_PASSWORD=...       # política: 8+ mayúscula minúscula número
+SSL_KEYSTORE=...                 # habilita TLS (sslConnector)
+NVD_API_KEY=...                  # opcional: dependencyCheckAnalyze
 ```
 
 ---
@@ -125,4 +138,6 @@ docker compose up -d
 
 ## Known Issues
 
-- (none — all resolved)
+- `NVD_API_KEY` opcional: sin ella el `dependencyCheckAnalyze` tarda ~20 min (rate limit NVD).
+- El hash bcrypt cost 10 de `admin123` sigue en `V1__create_users.sql` porque `V7` lo borra
+  (condición de la migración). No usar esa BD de tests fuera de tests.

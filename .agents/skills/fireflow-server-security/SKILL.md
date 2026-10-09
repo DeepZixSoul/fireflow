@@ -15,15 +15,15 @@ metadata:
 ## OWASP Top 10 Compliance
 
 ### A01: Broken Access Control
-- RBAC por rol (admin, technician, viewer)
+- RBAC por rol (admin, technician)
 - JWT con claims de rol
 - Validación de permisos en cada endpoint
 - Nunca confiar en el client-side para auth
 
 ### A02: Cryptographic Failures
-- Passwords: Argon2id (tCost=3, mCost=64MB, parallelism=4)
+- Passwords: BCrypt cost 12 en el servidor (Argon2id es el hasher de Android)
 - Tokens: HS256 con secret > 256 bits
-- TLS 1.2+ obligatorio (Let's Encrypt)
+- TLS con `sslConnector` (SSL_KEYSTORE/SSL_KEY_ALIAS/SSL_KEYSTORE_PASSWORD); certificados Let's Encrypt en despliegue
 - Nunca loggear secrets o passwords
 
 ### A03: Injection
@@ -51,7 +51,7 @@ metadata:
 - Revisar changelogs antes de actualizar
 
 ### A07: Authentication Failures
-- Rate limiting: 5 req/min por IP en login
+- Rate limiting: 5 req/min por IP en login y change-password
 - Lockout después de 5 intentos fallidos
 - Tokens con expiración corta (15 min)
 - Refresh token pattern
@@ -286,6 +286,12 @@ JWT_SECRET=your-256-bit-secret-here
 DATABASE_URL=jdbc:postgresql://localhost:5432/fireflow
 DB_USER=fireflow
 DB_PASSWORD=change-me-in-production
+ENVIRONMENT=production            # activa CORS fail-closed
+ALLOWED_ORIGINS=https://app.example.com
+ADMIN_INITIAL_USERNAME=admin      # bootstrap del primer admin (sin semillas)
+ADMIN_INITIAL_PASSWORD=change-me-Strong-Passw0rd
+SSL_KEYSTORE=/run/secrets/keystore.p12   # habilita TLS (sslConnector)
+NVD_API_KEY=                      # opcional, acelera dependencyCheckAnalyze
 ```
 
 ---

@@ -8,7 +8,7 @@
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-7F52FF?logo=kotlin&logoColor=white&style=for-the-badge)
 ![Android](https://img.shields.io/badge/Android-API%2026%2B-3DDC84?logo=android&logoColor=white&style=for-the-badge)
 ![Compose](https://img.shields.io/badge/Jetpack%20Compose-BOM%202025.03-4285F4?logo=jetpackcompose&logoColor=white&style=for-the-badge)
-![Tests](https://img.shields.io/badge/Tests-341%20%E2%9C%94-00E676?style=for-the-badge)
+![Tests](https://img.shields.io/badge/Tests-393%20%E2%9C%94-00E676?style=for-the-badge)
 ![Modules](https://img.shields.io/badge/Modules-18-FF5252?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-FFC107?style=for-the-badge)
 
@@ -35,9 +35,9 @@ Clean Architecture, sincronización offline-first y documentación en PDF/CSV.*
 
 ## 🏆 Highlights
 
-- 🧪 **341 tests automatizados** — 259 Android (243 unit + 16 instrumentados) y 82 del servidor Ktor
+- 🧪 **393 tests automatizados** — 285 Android (269 unit + 16 instrumentados) y 108 del servidor Ktor
 - 🏛️ **Clean Architecture + MVVM + Hilt** — 18 módulos Gradle con dependencias unidireccionales
-- 🔒 **Seguridad en profundidad** — SQLCipher en disco, Argon2id/BCrypt, JWT HS256 y prefs cifradas
+- 🔒 **Seguridad en profundidad** — SQLCipher en disco, Argon2id (Android) y BCrypt (servidor), JWT HS256 y prefs cifradas
 - 📡 **Offline-first** — Room + WorkManager con sincronización diferida contra Ktor/PostgreSQL
 - 📈 **Curvas de rendimiento** — presión/caudal con Vico y tabla por motor (0/50/100/140/200 %)
 - 📄 **Salidas profesionales** — informes PDF, exportación CSV y documentación con CameraX
@@ -182,7 +182,7 @@ flowchart TB
         Prefs["DataStore · EncryptedPrefs"]
         Sync["Sync · WorkManager + Ktor"]
     end
-    Server["Ktor Server · PostgreSQL<br/>JWT HS256 · Argon2id · CORS"]
+    Server["Ktor Server · PostgreSQL<br/>JWT HS256 · BCrypt · CORS"]
 
     ViewModels --> UseCases
     Repos --> Room
@@ -208,7 +208,7 @@ flowchart TB
 | **UI** | Jetpack Compose (BOM 2025.03.00) · Material3 1.3.1 · Vico 2.1.0 · Coil 2.7.0 · CameraX 1.4.1 |
 | **Datos** | Room 2.6.1 + SQLCipher 4.6.1 · DataStore · EncryptedSharedPreferences · WorkManager 2.10.0 |
 | **DI + async** | Hilt 2.53.1 · Kotlin Coroutines + Flow |
-| **Backend** | Ktor 3.0.3 · PostgreSQL (H2 en tests) · JWT HS256 + Argon2id · Flyway |
+| **Backend** | Ktor 3.0.3 · PostgreSQL (H2 en tests) · JWT HS256 + BCrypt · Flyway |
 | **Testing** | JUnit4 · Turbine · MockK · Room in-memory · Robolectric · Ktor Test Host |
 | **Build** | Kotlin 2.1.0 · AGP 8.13.2 · Gradle 8.13 · minSdk 26 / targetSdk 35 · ProGuard-R8 |
 
@@ -221,7 +221,7 @@ flowchart TB
 | Módulos Gradle | **18** (Android) + servidor Ktor independiente |
 | Archivos Kotlin | **217** (Android + servidor) |
 | Código fuente | **~19.500** líneas |
-| Tests | **341** → 259 Android (243 unit + 16 instrumentados) · 82 servidor |
+| Tests | **393** → 285 Android (269 unit + 16 instrumentados) · 108 servidor |
 | Rutas de navegación | **20** |
 | Integración | CI en GitHub Actions: tests Android + tests de servidor |
 
@@ -231,7 +231,7 @@ flowchart TB
 
 | Estado | Hito |
 |:------:|:-----|
-| ✅ | **v1.0** — CRUD completo, sync offline-first, seguridad y 341 tests |
+| ✅ | **v1.0** — CRUD completo, sync offline-first, seguridad y 393 tests |
 | ✅ | **CI** — tests Android + servidor en cada push / PR |
 | 🔄 | APK de **release firmado** y distribución |
 | ⬜ | **Recordatorios** de mantenimiento (WorkManager + notificaciones) |
@@ -303,18 +303,19 @@ FireFlow/
 
 ## 🔒 Seguridad
 
-- 🔑 **Argon2id** (tCost 3 · mCost 64 MB · parallelism 4) en el servidor · **BCrypt** (cost 10) en el seed Android
-- 🔐 **SQLCipher**: base de datos cifrada en disco (passphrase fuera del código vía `BuildConfig.DB_PASSPHRASE`)
+- 🔑 **BCrypt** (cost 12) en el servidor · **Argon2id** (tCost 3 · mCost 64 MB · parallelism 4) en Android
+- 🔐 **SQLCipher**: base de datos cifrada en disco con passphrase aleatoria en el Android Keystore (migración automática desde `DB_PASSPHRASE` legacy)
 - 🔑 **EncryptedSharedPreferences** para la configuración del servidor
 - 🎫 **JWT HS256** con expiración de 15 minutos
 - 🌐 **CORS** restringido + **rate limiting** en los endpoints de autenticación
 - 📝 **Logging** sin PII, tokens ni contraseñas
 - 📦 Repo limpio: `local.properties`, `.env` y auditorías internas quedan fuera del versionado
+- 🛡️ Controles, limitaciones y recomendaciones de despliegue en [SECURITY.md](SECURITY.md)
 
 | OWASP Top 10 | Medida aplicada |
 |:-------------|:----------------|
 | A01 · Control de acceso | RBAC por rol + *claims* en el JWT |
-| A02 · Fallas criptográficas | Argon2id (servidor) + BCrypt (seed) · SSL/TLS y `sslmode` en producción |
+| A02 · Fallas criptográficas | BCrypt (servidor) + Argon2id (Android) · SSL/TLS (`sslConnector`) y `sslmode` en producción |
 | A03 · Inyección | Queries parametrizadas (Exposed) |
 | A05 · Fallas de configuración | Secrets en variables de entorno, nunca en código |
 | A07 · Falta de control de acceso | *Lockout* de cuentas + rate limiting por IP |
