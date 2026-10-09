@@ -80,6 +80,9 @@ divulgación.
 - Sin `SERVER_PIN_*` en la variante release, el cliente exige TLS pero no fija
   pins (se recomienda definirlos para producción).
 - El aviso de dispositivo rooteado es informativo: no impide el uso de la app.
+- Las cuentas de Android (Room) y las del servidor (PostgreSQL) son independientes:
+  cambiar la contraseña en la app no modifica la cuenta del servidor. En el servidor
+  el cambio se hace con `POST /api/v1/auth/change-password`.
 
 ## Recomendaciones de despliegue
 
