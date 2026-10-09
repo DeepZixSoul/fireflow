@@ -12,6 +12,19 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.dependency.check)
+}
+
+val nvdApiKey: String? = System.getenv("NVD_API_KEY")
+
+dependencyCheck {
+    failBuildOnCVSS.set(7f)
+    skipTestGroups.set(true)
+    if (!nvdApiKey.isNullOrBlank()) {
+        nvd {
+            apiKey.set(nvdApiKey)
+        }
+    }
 }
 
 val localProperties = Properties().apply {
