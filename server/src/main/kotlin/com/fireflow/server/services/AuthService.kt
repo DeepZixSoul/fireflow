@@ -98,8 +98,24 @@ class AuthService(private val userRepository: UserRepository) {
         }
     }
 
-    fun changePassword(userId: Long, newPassword: String): Result<Unit> {
+    fun changePassword(userId: Long, oldPassword: String, newPassword: String): Result<Unit> {
         return try {
+            val user = userRepository.findById(userId)
+                ?: return Result.failure(Exception("Usuario no encontrado"))
+
+            if (!user[com.fireflow.server.repositories.Users.isActive]) {
+                return Result.failure(Exception("Usuario inactivo"))
+            }
+
+            if (!PasswordUtils.verifyPassword(oldPassword, user[com.fireflow.server.repositories.Users.passwordHash])) {
+                logger.warn("Password change rejected: current password mismatch (id=$userId)")
+                return Result.failure(Exception("La contraseña actual es incorrecta"))
+            }
+
+            if (oldPassword == newPassword) {
+                return Result.failure(Exception("La nueva contraseña debe ser distinta de la actual"))
+            }
+
             val validation = PasswordUtils.validatePassword(newPassword)
             if (!validation.isValid) {
                 val message = "Password inválido: ${validation.errors.joinToString(", ")}"
@@ -108,7 +124,7 @@ class AuthService(private val userRepository: UserRepository) {
 
             val hash = PasswordUtils.hashPassword(newPassword)
             userRepository.updatePassword(userId, hash)
-            logger.info("Password changed successfully")
+            logger.info("Password changed successfully (id=$userId)")
             Result.success(Unit)
         } catch (e: Exception) {
             logger.error("Password change error", e)

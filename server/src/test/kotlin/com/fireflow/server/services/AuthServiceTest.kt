@@ -89,28 +89,49 @@ class AuthServiceTest {
 
     @Test
     fun `change password succeeds with valid password`() {
-        val result = authService.changePassword(adminId, "NewPass123")
+        val result = authService.changePassword(adminId, TestSeed.ADMIN_PASSWORD, "NewPass123")
         assertTrue(result.isSuccess)
 
         val loginResult = authService.login(LoginRequest("admin", "NewPass123"))
         assertTrue(loginResult.isSuccess)
 
         // Restore original password for other tests
-        val restoreResult = authService.changePassword(adminId, TestSeed.ADMIN_PASSWORD)
+        val restoreResult = authService.changePassword(adminId, "NewPass123", TestSeed.ADMIN_PASSWORD)
         assertTrue(restoreResult.isSuccess)
     }
 
     @Test
     fun `change password fails with too short password`() {
-        val result = authService.changePassword(adminId, "ab1")
+        val result = authService.changePassword(adminId, TestSeed.ADMIN_PASSWORD, "ab1")
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull()?.message?.contains("Password inválido") == true)
     }
 
     @Test
     fun `change password fails without digit`() {
-        val result = authService.changePassword(adminId, "nodigit")
+        val result = authService.changePassword(adminId, TestSeed.ADMIN_PASSWORD, "nodigit")
         assertTrue(result.isFailure)
         assertTrue(result.exceptionOrNull()?.message?.contains("número") == true)
+    }
+
+    @Test
+    fun `change password fails with wrong current password`() {
+        val result = authService.changePassword(adminId, "WrongOld1", "NewPass123")
+        assertTrue(result.isFailure)
+        assertTrue(result.exceptionOrNull()?.message?.contains("contraseña actual") == true)
+    }
+
+    @Test
+    fun `change password fails when new equals current`() {
+        val result = authService.changePassword(adminId, TestSeed.ADMIN_PASSWORD, TestSeed.ADMIN_PASSWORD)
+        assertTrue(result.isFailure)
+        assertTrue(result.exceptionOrNull()?.message?.contains("distinta") == true)
+    }
+
+    @Test
+    fun `change password fails for unknown user`() {
+        val result = authService.changePassword(999_999L, TestSeed.ADMIN_PASSWORD, "NewPass123")
+        assertTrue(result.isFailure)
+        assertEquals("Usuario no encontrado", result.exceptionOrNull()?.message)
     }
 }
